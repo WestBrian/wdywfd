@@ -2,6 +2,10 @@ import Head from 'next/head'
 import { CookingSvg } from '../components/CookingSvg'
 
 export default function Home() {
+  function getRandomRecipe() {
+    window.location.href = `/api/getRandomRecipe`
+  }
+
   return (
     <div>
       <Head>
@@ -17,7 +21,10 @@ export default function Home() {
           <CookingSvg />
         </div>
         <div>
-          <button className="bg-gradient-to-tr from-green-500 to-green-300 hover:from-green-500 hover:to-green-400 active:from-green-500 active:to-green-400 px-8 py-4 rounded-lg text-white font-bold shadow-lg transition-colors">
+          <button
+            className="bg-gradient-to-tr from-green-500 to-green-300 hover:from-green-500 hover:to-green-400 active:from-green-500 active:to-green-400 px-8 py-4 rounded-lg text-white font-bold shadow-lg transition-colors"
+            onClick={getRandomRecipe}
+          >
             Find a Dinner
           </button>
         </div>

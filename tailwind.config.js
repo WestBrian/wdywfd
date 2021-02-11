@@ -3,6 +3,10 @@ module.exports = {
   darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {},
+    fontFamily: {
+      header: ['Varela Round', 'sans-serif'],
+      body: ['Open Sans', 'sans-serif']
+    }
   },
   variants: {
     extend: {},

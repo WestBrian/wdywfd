@@ -10,11 +10,11 @@ export const RecipeIngredients: FC<RecipeIngredientsProps> = ({
 }) => {
   return (
     <div>
-      <h2 className="font-bold text-lg text-gray-800 mb-4">Ingredients</h2>
+      <h2 className="font-bold text-lg text-header mb-4">Ingredients</h2>
       <ul>
         {ingredients.map((ingredient) => (
           <li
-            className="text-base text-gray-600 mb-2 flex flex-row"
+            className="text-base text-primary mb-2 flex flex-row"
             key={ingredient.original}
           >
             <span className="mr-2">•</span>

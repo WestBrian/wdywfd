@@ -22,7 +22,7 @@ export const RecipeSource: FC<RecipeSource> = ({ src, sourceName }) => {
             <p className="text-gray-400 text-xs">{url.host}</p>
           </div>
         </div>
-        <div className="font-bold text-gray-800 text-lg">&rarr;</div>
+        <div className="font-bold text-gray-800 text-xl">&rarr;</div>
       </div>
     </a>
   )

@@ -61,7 +61,7 @@ export const RecipeNutritions: FC<RecipeNutritionsProps> = ({ nutritions }) => {
 
   return (
     <div>
-      <h2 className="font-bold text-lg text-gray-800 mb-4">Nutritions</h2>
+      <h2 className="font-bold text-lg text-header mb-4">Nutritions</h2>
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         <Nutrition data={calories!} color={'red'} />
         <Nutrition data={{ ...carbs, name: 'Carbs' }} color={'green'} />

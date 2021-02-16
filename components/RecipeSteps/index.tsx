@@ -8,10 +8,10 @@ interface RecipeStepsProps {
 export const RecipeSteps: FC<RecipeStepsProps> = ({ steps }) => {
   return (
     <div>
-      <h2 className="font-bold text-lg text-gray-800 mb-4">Steps</h2>
+      <h2 className="font-bold text-lg text-header mb-4">Steps</h2>
       <ul>
         {steps.map((step) => (
-          <li className="text-base text-gray-600 mb-2" key={step.number}>
+          <li className="text-base text-primary mb-2" key={step.number}>
             {step.step}
           </li>
         ))}

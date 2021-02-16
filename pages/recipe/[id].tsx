@@ -7,6 +7,7 @@ import { RecipeIngredients } from '../../components/RecipeIngredients'
 import { RecipeSteps } from '../../components/RecipeSteps'
 import { FC } from 'react'
 import { Recipe } from '../../types'
+import { recipesIdData } from '../../mock/recipes-id.data'
 
 interface RecipeProps {
   recipe: Recipe
@@ -42,9 +43,11 @@ const RecipePage: FC<RecipeProps> = ({ recipe }) => {
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
+  const isDev = process.env.NODE_ENV === 'development'
+
   const id = context.params?.id
   const host = context.req.headers.host
-  let protocol = process.env.NODE_ENV === 'development' ? 'http' : 'https'
+  let protocol = isDev ? 'http' : 'https'
 
   const recipe = await fetch(
     `${protocol}://${host}/api/getRecipe/${id}`

@@ -1,9 +1,16 @@
 import Head from 'next/head'
 import { CookingSvg } from '../components/CookingSvg'
+import { useRouter } from 'next/router'
 
 export default function Home() {
+  const router = useRouter()
+
   function getRandomRecipe() {
-    window.location.href = `/api/getRandomRecipe`
+    fetch(`/api/getRandomRecipe`)
+      .then((res) => res.json())
+      .then(({ id }) => {
+        router.push(`/recipe/${id}`)
+      })
   }
 
   return (

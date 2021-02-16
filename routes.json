@@ -1,0 +1,4 @@
+{
+  "/api/getRecipe/*": "/getRecipe",
+  "/api/*": "/$1"
+}

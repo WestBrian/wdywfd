@@ -7,7 +7,6 @@ import { RecipeIngredients } from '../../components/RecipeIngredients'
 import { RecipeSteps } from '../../components/RecipeSteps'
 import { FC } from 'react'
 import { Recipe } from '../../types'
-import { recipesIdData } from '../../mock/recipes-id.data'
 
 interface RecipeProps {
   recipe: Recipe

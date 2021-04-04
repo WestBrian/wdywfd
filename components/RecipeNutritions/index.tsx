@@ -55,7 +55,7 @@ interface RecipeNutritionsProps {
 
 export const RecipeNutritions: FC<RecipeNutritionsProps> = ({ nutritions }) => {
   const calories = nutritions.find((n) => n.name === 'Calories')
-  const carbs = nutritions.find((n) => n.name === 'Carbohydrates')!
+  const carbs = nutritions.find((n) => n.name === 'Carbohydrates')
   const protein = nutritions.find((n) => n.name === 'Protein')
   const calcium = nutritions.find((n) => n.name === 'Calcium')
 
@@ -63,11 +63,18 @@ export const RecipeNutritions: FC<RecipeNutritionsProps> = ({ nutritions }) => {
     <div>
       <h2 className="font-bold text-lg text-header mb-4">Nutritions</h2>
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <Nutrition data={calories!} color={'red'} />
-        <Nutrition data={{ ...carbs, name: 'Carbs' }} color={'green'} />
-        <Nutrition data={protein!} color={'purple'} />
-        <Nutrition data={calcium!} color={'blue'} />
+        {calories && <Nutrition data={calories} color={'red'} />}
+        {carbs && (
+          <Nutrition data={{ ...carbs, name: 'Carbs' }} color={'green'} />
+        )}
+        {protein && <Nutrition data={protein} color={'purple'} />}
+        {calcium && <Nutrition data={calcium} color={'blue'} />}
       </div>
+      {nutritions.length === 0 && (
+        <div className="text-base text-primary">
+          There is no nutrient information.
+        </div>
+      )}
     </div>
   )
 }

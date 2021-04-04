@@ -2,12 +2,12 @@ import React, { FC } from 'react'
 
 interface RecipeDescProps {
   title: string
-  cuisines?: string[]
+  cuisines: string[]
   desc: string
 }
 
 export const RecipeDesc: FC<RecipeDescProps> = ({ title, cuisines, desc }) => {
-  const meta = cuisines ? cuisines.join(' | ') : '—'
+  const meta = cuisines ? cuisines.join(' | ') : ''
 
   function stripHTML(htmlStr: string) {
     return htmlStr.replace(/<[^>]*>/g, '')

@@ -4,8 +4,8 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        header: ['Varela Round', 'sans-serif'],
-        body: ['Open Sans', 'sans-serif'],
+        header: ['Poppins', 'sans-serif'],
+        body: ['Poppins', 'sans-serif'],
       },
       textColor: {
         header: '#2f3c64',

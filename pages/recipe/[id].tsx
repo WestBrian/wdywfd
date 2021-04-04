@@ -1,44 +1,14 @@
 import { GetServerSideProps } from 'next'
-import { RecipePicture } from '../../components/RecipePicture'
-import { RecipeSource } from '../../components/RecipeSource'
-import { RecipeDesc } from '../../components/RecipeDesc'
-import { RecipeNutritions } from '../../components/RecipeNutritions'
-import { RecipeIngredients } from '../../components/RecipeIngredients'
-import { RecipeSteps } from '../../components/RecipeSteps'
 import { FC } from 'react'
 import { Recipe } from '../../types'
+import { RecipePage } from '../../components/RecipePage'
 
-interface RecipeProps {
+interface PageProps {
   recipe: Recipe
 }
 
-const RecipePage: FC<RecipeProps> = ({ recipe }) => {
-  return (
-    <div className="max-w-screen-lg m-auto">
-      <div className="mb-8">
-        <RecipePicture src={recipe.image} alt={recipe.title} />
-      </div>
-      <div className="px-6 pb-8">
-        <div className="mb-8">
-          <RecipeSource src={recipe.sourceUrl} sourceName={recipe.sourceName} />
-        </div>
-        <div className="mb-8">
-          <RecipeDesc
-            title={recipe.title}
-            cuisines={recipe.cuisines!}
-            desc={recipe.summary}
-          />
-        </div>
-        <div className="mb-8">
-          <RecipeNutritions nutritions={recipe.nutrition.nutrients!} />
-        </div>
-        <div className="mb-8">
-          <RecipeIngredients ingredients={recipe.extendedIngredients!} />
-        </div>
-        <RecipeSteps steps={recipe.analyzedInstructions![0].steps!} />
-      </div>
-    </div>
-  )
+const Page: FC<PageProps> = ({ recipe }) => {
+  return <RecipePage recipe={recipe} />
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
@@ -59,4 +29,4 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   }
 }
 
-export default RecipePage
+export default Page

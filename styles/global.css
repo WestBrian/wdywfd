@@ -1,12 +1,26 @@
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans&family=Varela+Round&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Roboto&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+@layer utilities {
+  .mix-blend-multiply {
+    mix-blend-mode: multiply;
+  }
+}
+
+html,
 body {
-  background-color: #ecf7f3;
-  @apply font-body;
+  @apply h-full;
+}
+
+body {
+  @apply font-body bg-white;
+}
+
+body > div {
+  @apply h-full;
 }
 
 h1,
@@ -15,5 +29,5 @@ h3,
 h4,
 h5,
 h6 {
-  @apply font-header;
+  @apply font-header font-semibold;
 }

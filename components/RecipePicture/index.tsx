@@ -1,4 +1,5 @@
 import React, { FC } from 'react'
+import Image from 'next/image'
 
 interface RecipePictureProps {
   src: string
@@ -7,9 +8,9 @@ interface RecipePictureProps {
 
 export const RecipePicture: FC<RecipePictureProps> = ({ src, alt }) => {
   return (
-    <div className="text-center md:px-6 md:pt-8">
-      <div className="relative inline-block w-full md:w-2/4 m-auto rounded-none md:rounded-2xl overflow-hidden">
-        <img src={src} alt={alt} className="w-full" />
+    <div className="md:mb-8">
+      <div className="relative w-full h-80 md:rounded md:overflow-hidden">
+        <Image src={src} alt={alt} layout={'fill'} className="object-cover" />
         <div className="absolute inset-0 bg-gradient-to-t from-black opacity-30"></div>
       </div>
     </div>

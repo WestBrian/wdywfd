@@ -9,7 +9,7 @@
     "lint": "next lint",
     "test": "jest",
     "format": "prettier --write \"{pages,src}/**/*\"",
-    "validate": "npm run lint && npm test",
+    "validate": "npm run lint && npm test -- --ci",
     "prepare": "husky install"
   },
   "lint-staged": {

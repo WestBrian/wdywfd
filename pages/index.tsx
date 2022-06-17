@@ -1,41 +1,21 @@
+import type { NextPage } from 'next'
 import Head from 'next/head'
-import { CookingSvg } from '../components/CookingSvg'
-import { useRouter } from 'next/router'
+import { RecipeSearch } from '../src/pages/RecipeSearch'
 
-export default function Home() {
-  const router = useRouter()
-
-  function getRandomRecipe() {
-    fetch(`/api/getRandomRecipe`)
-      .then((res) => res.json())
-      .then(({ id }) => {
-        router.push(`/recipe/${id}`)
-      })
-  }
-
+const Home: NextPage = () => {
   return (
     <div>
       <Head>
-        <title>What Do You Want For Dinner</title>
+        <title>Whats For Dinner</title>
+        <meta
+          name="description"
+          content="Find recipes when you are stuck on what to make"
+        />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
-      <main className="px-4 py-8 text-center">
-        <h1 className="font-bold text-2xl md:text-5xl mb-8">
-          What Do You Want For Dinner?
-        </h1>
-        <div className="mb-8">
-          <CookingSvg />
-        </div>
-        <div>
-          <button
-            className="bg-gradient-to-tr from-green-500 to-green-300 hover:from-green-500 hover:to-green-400 active:from-green-500 active:to-green-400 px-8 py-4 rounded-lg text-white font-bold shadow-lg transition-colors"
-            onClick={getRandomRecipe}
-          >
-            Find a Dinner
-          </button>
-        </div>
-      </main>
+      <RecipeSearch />
     </div>
   )
 }
+
+export default Home

@@ -1,9 +1,15 @@
 import React, { FC, ReactElement } from 'react'
 import { render, RenderOptions } from '@testing-library/react'
 import { ChakraProvider } from '@chakra-ui/react'
+import { Provider as ReduxProvider } from 'react-redux'
+import { setupStore } from './src/store'
 
 const AllTheProviders: FC<{ children: React.ReactNode }> = ({ children }) => {
-  return <ChakraProvider>{children}</ChakraProvider>
+  return (
+    <ReduxProvider store={setupStore()}>
+      <ChakraProvider>{children}</ChakraProvider>
+    </ReduxProvider>
+  )
 }
 
 const customRender = (

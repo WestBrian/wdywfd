@@ -4,12 +4,18 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "dev:mock": "NEXT_PUBLIC_API_MOCKING=enabled next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
     "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --collectCoverage",
+    "cypress:open": "concurrently \"npm run dev\" \"cypress open\"",
+    "cypress:mock": "concurrently \"npm run dev:mock\" \"cypress open\"",
+    "cypress:run": "concurrently \"npm run dev\" \"cypress run\"",
     "format": "prettier --write \"{pages,src}/**/*\"",
-    "validate": "npm run lint && npm test -- --ci",
+    "validate": "tsc --noEmit && npm run lint && npm run test:coverage -- --ci",
     "prepare": "husky install"
   },
   "lint-staged": {
@@ -18,28 +24,45 @@
       "eslint"
     ]
   },
+  "msw": {
+    "workerDirectory": "public"
+  },
   "dependencies": {
+    "@chakra-ui/icons": "^2.0.2",
     "@chakra-ui/react": "^2.2.1",
+    "@chakra-ui/theme-tools": "^2.0.2",
     "@emotion/react": "^11.9.3",
     "@emotion/styled": "^11.9.3",
+    "@heroicons/react": "^1.0.6",
+    "@reduxjs/toolkit": "^1.8.2",
+    "beautiful-react-hooks": "^3.2.3",
     "framer-motion": "^6.3.11",
-    "next": "12.1.6",
+    "next": "12.1.7-canary.41",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "react-redux": "^8.0.2",
+    "superagent": "3.7.0"
   },
   "devDependencies": {
+    "@ngneat/falso": "^5.7.0",
+    "@testing-library/cypress": "^8.0.3",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.3.0",
+    "@testing-library/user-event": "^14.2.1",
     "@types/node": "18.0.0",
     "@types/react": "18.0.14",
     "@types/react-dom": "18.0.5",
+    "concurrently": "^7.2.2",
+    "cypress": "^10.3.0",
     "eslint": "8.17.0",
     "eslint-config-next": "12.1.6",
     "husky": "^8.0.1",
     "jest": "^28.1.1",
     "jest-environment-jsdom": "^28.1.1",
     "lint-staged": "^13.0.2",
+    "msw": "^0.42.3",
     "prettier": "^2.7.1",
-    "typescript": "4.7.3"
+    "typescript": "4.7.3",
+    "whatwg-fetch": "^3.6.2"
   }
 }

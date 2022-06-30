@@ -9,11 +9,26 @@ const createJestConfig = nextJest({
 // Add any custom config to be passed to Jest
 const customJestConfig = {
   // Add more setup options before each test is run
-  // setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
+  setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
   // if using TypeScript with a baseUrl set to the root directory then you need the below for alias' to work
   moduleDirectories: ['node_modules', '<rootDir>/'],
   testEnvironment: 'jest-environment-jsdom',
+  collectCoverageFrom: ['src/**/*', '!src/theme.ts', '!src/lib/**/*'],
+  coverageThreshold: {
+    global: {
+      branches: 90,
+      functions: 90,
+      lines: 90,
+      statements: 90,
+    },
+  },
+}
+
+async function jestConfig() {
+  const nextJestConfig = await createJestConfig(customJestConfig)()
+  nextJestConfig.transformIgnorePatterns[0] = '/node_modules/(?!(uuid)/)'
+  return nextJestConfig
 }
 
 // createJestConfig is exported this way to ensure that next/jest can load the Next.js config which is async
-module.exports = createJestConfig(customJestConfig)
+module.exports = jestConfig

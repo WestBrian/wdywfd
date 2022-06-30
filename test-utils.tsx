@@ -2,11 +2,11 @@ import React, { FC, ReactElement } from 'react'
 import { render, RenderOptions } from '@testing-library/react'
 import { ChakraProvider } from '@chakra-ui/react'
 import { Provider as ReduxProvider } from 'react-redux'
-import { setupStore } from './src/store'
+import { getStore } from './src/store'
 
 const AllTheProviders: FC<{ children: React.ReactNode }> = ({ children }) => {
   return (
-    <ReduxProvider store={setupStore()}>
+    <ReduxProvider store={getStore()}>
       <ChakraProvider>{children}</ChakraProvider>
     </ReduxProvider>
   )

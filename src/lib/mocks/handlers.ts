@@ -39,4 +39,4 @@ export const failRandomRecipe = rest.get(
   }
 )
 
-export const handlers = [successRandomRecipeNoImage]
+export const handlers = [failRandomRecipe]

@@ -5,27 +5,40 @@ import {
   HStack,
   Icon,
   Text,
+  VStack,
+  Button,
 } from '@chakra-ui/react'
 import { type FC, useEffect } from 'react'
-import { useGetRandomRecipesQuery } from '../services/spoonacular'
 import { RecipeCard } from './RecipeCard'
 import { ExclamationCircleIcon } from '@heroicons/react/solid'
+import { useDispatch, useSelector } from 'react-redux'
+import { AppDispatch, RootState } from '../store'
+import { fetchRandomRecipes } from '../reducers/recipe-search'
 
-export interface RecipeCardSectionProps {
-  tag: string
-  page: number
-}
+export interface RecipeCardSectionProps {}
 
-export const RecipeCardSection: FC<RecipeCardSectionProps> = ({
-  tag,
-  page,
-}) => {
-  const { data, isLoading, isError } = useGetRandomRecipesQuery({
-    tag,
-    page,
-  })
+export const RecipeCardSection: FC<RecipeCardSectionProps> = () => {
+  const dispatch = useDispatch<AppDispatch>()
+  const status = useSelector((state: RootState) => state.recipeSearch.loading)
+  const selectedTag = useSelector(
+    (state: RootState) => state.recipeSearch.selectedTag
+  )
+  const data = useSelector(
+    (state: RootState) => state.recipeSearch.randomRecipes[selectedTag]
+  )
+
+  const isLoading = status === 'pending'
+  const isError = status === 'failed'
   const toastId = 'random-recipe-error-toast'
   const toast = useToast()
+
+  useEffect(() => {
+    if (data.length > 0) {
+      return
+    }
+
+    dispatch(fetchRandomRecipes(selectedTag))
+  }, [dispatch, selectedTag, data.length])
 
   useEffect(() => {
     if (isError && !toast.isActive(toastId)) {
@@ -39,8 +52,12 @@ export const RecipeCardSection: FC<RecipeCardSectionProps> = ({
     }
   }, [isError, toast])
 
-  if (isLoading) {
-    return <Spinner color={'blue.500'} />
+  if (isLoading && data.length === 0) {
+    return (
+      <HStack w={'full'} justify={'center'}>
+        <Spinner color={'blue.500'} />
+      </HStack>
+    )
   }
 
   if (isError) {
@@ -55,11 +72,30 @@ export const RecipeCardSection: FC<RecipeCardSectionProps> = ({
   }
 
   return (
-    <SimpleGrid w={'full'} px={6} columns={[1, 2, 3]} spacing={[6]}>
-      {data &&
-        data.recipes.map((recipe, index) => (
-          <RecipeCard key={recipe.id} recipe={recipe} priority={index === 0} />
-        ))}
-    </SimpleGrid>
+    <VStack w={'full'}>
+      <SimpleGrid w={'full'} px={6} columns={[1, 2, 3]} spacing={[6]}>
+        {data &&
+          data.map((recipe, index) => (
+            <RecipeCard
+              key={recipe.id}
+              recipe={recipe}
+              priority={index === 0}
+            />
+          ))}
+      </SimpleGrid>
+      {data.length > 0 && (
+        <HStack py={6} w={'full'}>
+          <Button
+            mx={'auto'}
+            colorScheme={'green'}
+            size={'sm'}
+            isLoading={isLoading}
+            onClick={() => dispatch(fetchRandomRecipes(selectedTag))}
+          >
+            Load more
+          </Button>
+        </HStack>
+      )}
+    </VStack>
   )
 }

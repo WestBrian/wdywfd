@@ -77,7 +77,7 @@ export const RecipeCardSection: FC<RecipeCardSectionProps> = () => {
         {data &&
           data.map((recipe, index) => (
             <RecipeCard
-              key={recipe.id}
+              key={`${recipe.id}-${index}`}
               recipe={recipe}
               priority={index === 0}
             />

@@ -26,7 +26,8 @@ const customJestConfig = {
 
 async function jestConfig() {
   const nextJestConfig = await createJestConfig(customJestConfig)()
-  nextJestConfig.transformIgnorePatterns[0] = '/node_modules/(?!(uuid)/)'
+  nextJestConfig.transformIgnorePatterns[0] =
+    '/node_modules/(?!(uuid|unicode-emoji)/)'
   return nextJestConfig
 }
 

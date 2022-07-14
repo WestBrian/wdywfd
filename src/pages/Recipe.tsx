@@ -1,4 +1,4 @@
-import { type FC } from 'react'
+import React, { type FC } from 'react'
 import type { InlineResponse2004 } from '../../spoonacular-sdk'
 import {
   Container,

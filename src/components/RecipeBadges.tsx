@@ -1,4 +1,4 @@
-import { type FC } from 'react'
+import React, { type FC } from 'react'
 import { Wrap, WrapItem, Badge } from '@chakra-ui/react'
 
 export interface RecipeBadgesProps {
@@ -7,7 +7,7 @@ export interface RecipeBadgesProps {
 
 export const RecipeBadges: FC<RecipeBadgesProps> = ({ badges }) => {
   return (
-    <Wrap>
+    <Wrap justify={'flex-end'}>
       {badges
         .filter((badge) => !!badge)
         .map((badge) => (

@@ -3,7 +3,7 @@ import { ChakraProvider } from '@chakra-ui/react'
 import theme from '../src/theme'
 import { Provider as ReduxProvider } from 'react-redux'
 import { getStore } from '../src/store'
-import { useMemo } from 'react'
+import React, { useMemo } from 'react'
 
 if (process.env.NEXT_PUBLIC_API_MOCKING === 'enabled') {
   require('../src/lib/mocks')

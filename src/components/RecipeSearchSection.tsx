@@ -17,7 +17,7 @@ import {
   useRadioGroup,
   chakra,
 } from '@chakra-ui/react'
-import { type FC, useState } from 'react'
+import React, { type FC, useState } from 'react'
 import { AdjustmentsIcon } from '@heroicons/react/solid'
 import { useWindowScroll } from 'beautiful-react-hooks'
 import { useSelector, useDispatch } from 'react-redux'

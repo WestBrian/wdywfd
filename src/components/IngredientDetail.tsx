@@ -1,5 +1,5 @@
 import { Box, Flex, HStack, Square, Text } from '@chakra-ui/react'
-import { type FC, useMemo } from 'react'
+import React, { type FC, useMemo } from 'react'
 import { InlineResponse2003ExtendedIngredients } from '../../spoonacular-sdk'
 import { foodToEmoji } from '../utils/foodToEmoji'
 import startCase from 'lodash/startCase'

@@ -1,4 +1,4 @@
-import { type FC, useState } from 'react'
+import React, { type FC, useState } from 'react'
 import { VStack, Text, Flex } from '@chakra-ui/react'
 import { InlineResponse2003ExtendedIngredients } from '../../spoonacular-sdk'
 import { ServingsButton } from './ServingsButton'

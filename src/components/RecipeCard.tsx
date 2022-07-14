@@ -1,4 +1,4 @@
-import { type FC } from 'react'
+import React, { type FC } from 'react'
 import type { InlineResponse2006Recipes } from '../../spoonacular-sdk'
 import Image from 'next/image'
 import { Box, Text, VStack } from '@chakra-ui/react'

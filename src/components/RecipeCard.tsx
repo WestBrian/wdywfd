@@ -14,7 +14,7 @@ export const RecipeCard: FC<RecipeCardProps> = ({
   priority = false,
 }) => {
   return (
-    <Link href={`/recipe/${recipe.id}`}>
+    <Link href={`/recipe/${recipe.id}`} prefetch={false}>
       <Box
         as={'a'}
         borderRadius={'lg'}

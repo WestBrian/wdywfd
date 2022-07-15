@@ -1,4 +1,4 @@
-import { type FC } from 'react'
+import React, { type FC } from 'react'
 import { Container, Heading, VStack } from '@chakra-ui/react'
 import { RecipeSearchSection } from '../components/RecipeSearchSection'
 import { RecipeCardSection } from '../components/RecipeCardSection'

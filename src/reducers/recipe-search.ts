@@ -17,7 +17,6 @@ const tags = [
   'pasta',
   'dessert',
   'asian',
-  'mexican',
 ] as const
 
 interface RandomRecipes extends InlineResponse2006 {

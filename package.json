@@ -38,10 +38,13 @@
     "beautiful-react-hooks": "^3.2.3",
     "framer-motion": "^6.3.11",
     "next": "^12.2.0",
+    "node-emoji": "^1.11.0",
+    "pluralize": "^8.0.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-redux": "^8.0.2",
-    "superagent": "3.7.0"
+    "superagent": "3.7.0",
+    "unicode-emoji": "^2.3.0"
   },
   "devDependencies": {
     "@ngneat/falso": "^5.7.0",
@@ -50,6 +53,8 @@
     "@testing-library/react": "^13.3.0",
     "@testing-library/user-event": "^14.2.1",
     "@types/node": "18.0.0",
+    "@types/node-emoji": "^1.8.1",
+    "@types/pluralize": "^0.0.29",
     "@types/react": "18.0.14",
     "@types/react-dom": "18.0.5",
     "concurrently": "^7.2.2",
@@ -61,8 +66,9 @@
     "jest-environment-jsdom": "^28.1.1",
     "lint-staged": "^13.0.2",
     "msw": "^0.42.3",
+    "next-router-mock": "^0.7.4",
     "prettier": "^2.7.1",
-    "typescript": "4.7.3",
+    "typescript": "4.7.4",
     "whatwg-fetch": "^3.6.2"
   }
 }

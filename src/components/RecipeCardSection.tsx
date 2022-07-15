@@ -8,7 +8,7 @@ import {
   VStack,
   Button,
 } from '@chakra-ui/react'
-import { type FC, useEffect } from 'react'
+import React, { type FC, useEffect } from 'react'
 import { RecipeCard } from './RecipeCard'
 import { ExclamationCircleIcon } from '@heroicons/react/solid'
 import { useDispatch, useSelector } from 'react-redux'
@@ -77,7 +77,7 @@ export const RecipeCardSection: FC<RecipeCardSectionProps> = () => {
         {data &&
           data.map((recipe, index) => (
             <RecipeCard
-              key={recipe.id}
+              key={`${recipe.id}-${index}`}
               recipe={recipe}
               priority={index === 0}
             />

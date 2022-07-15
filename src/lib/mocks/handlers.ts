@@ -39,4 +39,27 @@ export const failRandomRecipe = rest.get(
   }
 )
 
-export const handlers = [successRandomRecipeNoImage]
+export const successBackendRecipeNoImage = rest.get(
+  'https://api.spoonacular.com/recipes/:id/information',
+  (_, res, ctx) => {
+    const recipe = getRandomRecipe()
+
+    return res(ctx.delay(1500), ctx.json({ ...recipe, image: undefined }))
+  }
+)
+
+export const failBackendRecipeNoImage = rest.get(
+  'https://api.spoonacular.com/recipes/:id/information',
+  (_, res, ctx) => {
+    return res(
+      ctx.delay(1500),
+      ctx.status(500),
+      ctx.json({ message: 'there was an error' })
+    )
+  }
+)
+
+export const handlers = [
+  successRandomRecipeNoImage,
+  successBackendRecipeNoImage,
+]

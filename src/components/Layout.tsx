@@ -13,12 +13,14 @@ export const Layout: FC<LayoutProps> = ({ children }) => {
   return (
     <>
       <Navbar ref={navbarRef} />
-      <Box
-        ml={[0, `${dimensions?.paddingBox.width}px`]}
-        mb={[`${dimensions?.paddingBox.height}px`, 'auto']}
-      >
-        {children}
-      </Box>
+      {dimensions && (
+        <Box
+          ml={[0, `${dimensions.paddingBox.width}px`]}
+          mb={[`${dimensions.paddingBox.height}px`, 'auto']}
+        >
+          {children}
+        </Box>
+      )}
     </>
   )
 }

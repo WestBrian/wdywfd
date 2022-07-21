@@ -10,7 +10,6 @@ import {
   HStack,
   VStack,
   Box,
-  Icon,
   VisuallyHidden,
   useColorModeValue,
   useRadio,
@@ -23,6 +22,7 @@ import { useWindowScroll } from 'beautiful-react-hooks'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from '../store'
 import { setQuery, setTag } from '../reducers/recipe-search'
+import { px } from '../pages/RecipeSearch'
 
 interface RecipeTagProps {
   tag: string
@@ -54,6 +54,7 @@ export const RecipeSearchSection: FC<RecipeSearchSectionProps> = () => {
   const query = useSelector((state: RootState) => state.recipeSearch.query)
   const tag = useSelector((state: RootState) => state.recipeSearch.selectedTag)
   const tags = useSelector((state: RootState) => state.recipeSearch.tags)
+  const overflowColor = useColorModeValue('gray.200', 'gray.800')
 
   const { getRadioProps, getRootProps } = useRadioGroup({
     defaultValue: tag,
@@ -80,7 +81,8 @@ export const RecipeSearchSection: FC<RecipeSearchSectionProps> = () => {
   return (
     <VStack
       spacing={6}
-      p={6}
+      px={px}
+      py={6}
       w={'full'}
       bg={bgColor}
       position={'sticky'}
@@ -108,9 +110,9 @@ export const RecipeSearchSection: FC<RecipeSearchSectionProps> = () => {
           </InputGroup>
         </FormControl>
         <IconButton
-          bg={'green.50'}
+          colorScheme={'teal'}
           aria-label={'Filters'}
-          icon={<Icon as={AdjustmentsIcon} color={'green.500'} />}
+          icon={<AdjustmentsIcon width={20} />}
         />
       </HStack>
       <Box position={'relative'} w={'full'}>
@@ -119,16 +121,28 @@ export const RecipeSearchSection: FC<RecipeSearchSectionProps> = () => {
             <RecipeTag key={tag} tag={tag} {...getRadioProps({ value: tag })} />
           ))}
         </HStack>
-        <Box
+        {/* <Box
           position={'absolute'}
           top={0}
           right={0}
           bottom={0}
           left={'85%'}
           pointerEvents={'none'}
-          bgGradient={'linear(to-l, white, transparent)'}
-        />
+          bgGradient={`linear(to-l, ${overflowColor}, transparent)`}
+        /> */}
       </Box>
     </VStack>
   )
 }
+
+/*
+background-image: linear-gradient(to right, white, white),
+    linear-gradient(to right, white, white),
+    linear-gradient(to right, rgba(0, 0, 0, 0.25), rgba(255, 255, 255, 0)),
+    linear-gradient(to left, rgba(0, 0, 0, 0.25), rgba(255, 255, 255, 0));
+  background-position: left center, right center, left center, right center;
+  background-repeat: no-repeat;
+  background-color: white;
+  background-size: 20px 100%, 20px 100%, 10px 100%, 10px 100%;
+  background-attachment: local, local, scroll, scroll;
+*/

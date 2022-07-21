@@ -14,6 +14,7 @@ import { ExclamationCircleIcon } from '@heroicons/react/solid'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch, RootState } from '../store'
 import { fetchRandomRecipes } from '../reducers/recipe-search'
+import { px } from '../pages/RecipeSearch'
 
 export interface RecipeCardSectionProps {}
 
@@ -73,7 +74,7 @@ export const RecipeCardSection: FC<RecipeCardSectionProps> = () => {
 
   return (
     <VStack w={'full'}>
-      <SimpleGrid w={'full'} px={6} columns={[1, 2, 3]} spacing={[6]}>
+      <SimpleGrid w={'full'} px={px} columns={[1, 1, 2, 3]} spacing={6}>
         {data &&
           data.map((recipe, index) => (
             <RecipeCard

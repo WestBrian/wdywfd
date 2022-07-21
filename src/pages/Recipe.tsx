@@ -26,7 +26,7 @@ export const Recipe: FC<RecipeProps> = ({ recipe }) => {
   const router = useRouter()
 
   return (
-    <Container p={6} maxW={'container.md'}>
+    <Container px={[6, 12]} py={6} maxW={'container.lg'}>
       <VStack w={'full'} spacing={6}>
         <Flex w={'full'} justify={'space-between'} align={'center'}>
           <IconButton
@@ -46,7 +46,7 @@ export const Recipe: FC<RecipeProps> = ({ recipe }) => {
         </Flex>
         <Box
           w={'full'}
-          h={[200, 275]}
+          h={[200, 275, 350]}
           borderRadius={'lg'}
           overflow={'hidden'}
           position={'relative'}

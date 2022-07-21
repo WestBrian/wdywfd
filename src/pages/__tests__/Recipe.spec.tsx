@@ -2,6 +2,7 @@ import { render, screen } from '../../../test-utils'
 import { Recipe, RecipeProps } from '../Recipe'
 import { mockRandomRecipe } from '../../../mock-data'
 import userEvent from '@testing-library/user-event'
+import React from 'react'
 
 jest.mock('next/router', () => require('next-router-mock'))
 

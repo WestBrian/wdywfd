@@ -1,4 +1,11 @@
-import { Box, Flex, HStack, Square, Text } from '@chakra-ui/react'
+import {
+  Box,
+  Flex,
+  HStack,
+  Square,
+  Text,
+  useColorModeValue,
+} from '@chakra-ui/react'
 import React, { type FC, useMemo } from 'react'
 import { InlineResponse2003ExtendedIngredients } from '../../spoonacular-sdk'
 import { foodToEmoji } from '../utils/foodToEmoji'
@@ -23,6 +30,9 @@ export const IngredientDetail: FC<IngredientDetailProps> = ({
   adjustedServings,
   servings,
 }) => {
+  const bg = useColorModeValue('gray.200', 'gray.700')
+  const unitColor = useColorModeValue('gray.500', 'gray.400')
+
   const emoji = useMemo(() => {
     return foodToEmoji(ingredient.name)
   }, [ingredient.name])
@@ -33,7 +43,7 @@ export const IngredientDetail: FC<IngredientDetailProps> = ({
   }, [ingredient.amount, adjustedServings, servings])
 
   return (
-    <Box w={'full'} p={2} borderRadius={'lg'} bg={'gray.200'}>
+    <Box w={'full'} p={2} borderRadius={'lg'} bg={bg}>
       <Flex w={'full'} justify={'space-between'} align={'center'}>
         <HStack spacing={4}>
           <Square bg={'white'} borderRadius={'lg'} size={'40px'}>
@@ -43,7 +53,7 @@ export const IngredientDetail: FC<IngredientDetailProps> = ({
             {startCase(ingredient.name)}
           </Text>
         </HStack>
-        <Text fontSize={'xs'} fontWeight={'semibold'} color={'gray.500'}>
+        <Text fontSize={'xs'} fontWeight={'semibold'} color={unitColor}>
           {formatAmount(servingAmount)} {ingredient.unit}
         </Text>
       </Flex>

@@ -3,6 +3,7 @@ import { Recipe, RecipeProps } from '../Recipe'
 import { mockRandomRecipe } from '../../../mock-data'
 import userEvent from '@testing-library/user-event'
 import React from 'react'
+import startCase from 'lodash/startCase'
 
 jest.mock('next/router', () => require('next-router-mock'))
 
@@ -56,5 +57,33 @@ describe('<Recipe />', () => {
     expect(screen.getByText('vegan')).toBeInTheDocument()
     expect(screen.getByText('vegetarian')).toBeInTheDocument()
     expect(screen.getByText('very popular')).toBeInTheDocument()
+  })
+
+  it('toggles between ingredients and steps', async () => {
+    const { user } = setup()
+    const ingredients = mockRandomRecipe.extendedIngredients
+    const steps = mockRandomRecipe.analyzedInstructions[0].steps
+    const numOfIngredients = ingredients.length
+    const numOfSteps = steps.length
+
+    expect(
+      screen.queryByText(startCase(ingredients[0].name))
+    ).toBeInTheDocument()
+    await user.click(screen.getByText(`Steps (${numOfSteps})`))
+    expect(screen.queryByText(steps[1].step)).toBeInTheDocument()
+    await user.click(screen.getByText(`Ingredients (${numOfIngredients})`))
+    expect(
+      screen.queryByText(startCase(ingredients[0].name))
+    ).toBeInTheDocument()
+  })
+
+  it('shows more of the description', async () => {
+    const { user } = setup()
+    const beforeLength =
+      screen.getByTestId('show-more-button').parentNode?.textContent?.length!
+    await user.click(screen.getByTestId('show-more-button'))
+    const afterLength =
+      screen.getByTestId('show-more-button').parentNode?.textContent?.length!
+    expect(beforeLength).toBeLessThan(afterLength)
   })
 })

@@ -19,6 +19,7 @@ const forceEmoji = {
   pork: 'cut of meat',
   tortillas: 'flatbread',
   rosemary: 'herb',
+  basil: 'herb',
 }
 
 const foodEmojis = unicodeEmojis.getEmojis()

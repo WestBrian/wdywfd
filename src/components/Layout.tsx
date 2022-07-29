@@ -15,7 +15,7 @@ export const Layout: FC<LayoutProps> = ({ children }) => {
       <Navbar ref={navbarRef} />
       {dimensions && (
         <Box
-          ml={[0, `${dimensions.paddingBox.width}px`]}
+          ml={['auto', `${dimensions.paddingBox.width}px`]}
           mb={[`${dimensions.paddingBox.height}px`, 'auto']}
         >
           {children}

@@ -11,6 +11,16 @@ import { InlineResponse2003ExtendedIngredients } from '../../spoonacular-sdk'
 import { foodToEmoji } from '../utils/foodToEmoji'
 import startCase from 'lodash/startCase'
 import round from 'lodash/round'
+import { motion, Variants } from 'framer-motion'
+
+const animation: Variants = {
+  hidden: {
+    opacity: 0,
+  },
+  shown: {
+    opacity: 1,
+  },
+}
 
 function formatAmount(amount: number) {
   if (!Number.isInteger(amount)) {
@@ -43,7 +53,15 @@ export const IngredientDetail: FC<IngredientDetailProps> = ({
   }, [ingredient.amount, adjustedServings, servings])
 
   return (
-    <Box w={'full'} p={2} borderRadius={'lg'} bg={bg}>
+    <Box
+      as={motion.li}
+      w={'full'}
+      p={2}
+      borderRadius={'lg'}
+      bg={bg}
+      listStyleType={'none'}
+      variants={animation}
+    >
       <Flex w={'full'} justify={'space-between'} align={'center'}>
         <HStack spacing={4}>
           <Square bg={'white'} borderRadius={'lg'} size={'40px'}>
@@ -53,7 +71,12 @@ export const IngredientDetail: FC<IngredientDetailProps> = ({
             {startCase(ingredient.name)}
           </Text>
         </HStack>
-        <Text fontSize={'xs'} fontWeight={'semibold'} color={unitColor}>
+        <Text
+          fontSize={'xs'}
+          fontWeight={'semibold'}
+          color={unitColor}
+          whiteSpace={'nowrap'}
+        >
           {formatAmount(servingAmount)} {ingredient.unit}
         </Text>
       </Flex>

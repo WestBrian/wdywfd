@@ -14,9 +14,10 @@ import {
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { DotsHorizontalIcon, ArrowLeftIcon } from '@heroicons/react/solid'
-import { RecipeIngredients } from '../components/RecipeIngredients'
+import { RecipeDetails } from '../components/RecipeDetails'
 import { ClockIcon } from '@heroicons/react/solid'
 import { RecipeBadges } from '../components/RecipeBadges'
+import { RecipeSummary } from '../components/RecipeSummary'
 
 export interface RecipeProps {
   recipe: InlineResponse2004
@@ -94,13 +95,10 @@ export const Recipe: FC<RecipeProps> = ({ recipe }) => {
             </VStack>
           </Box>
         </Box>
-        {/* <Text
-          fontSize={'md'}
-          fontWeight={'semibold'}
-          dangerouslySetInnerHTML={{ __html: recipe.summary }}
-        /> */}
-        <RecipeIngredients
+        <RecipeSummary summary={recipe.summary} />
+        <RecipeDetails
           ingredients={recipe.extendedIngredients}
+          instructions={recipe.analyzedInstructions}
           servings={recipe.servings}
         />
       </VStack>

@@ -1,6 +1,18 @@
 // jest.config.js
 const nextJest = require('next/jest')
 
+const esmPackages = [
+  'uuid',
+  'unicode-emoji',
+  'string-strip-html',
+  'ranges-apply',
+  'ranges-merge',
+  'ranges-sort',
+  'ranges-push',
+  'string-collapse-leading-whitespace',
+  'string-left-right',
+]
+
 const createJestConfig = nextJest({
   // Provide the path to your Next.js app to load next.config.js and .env files in your test environment
   dir: './',
@@ -26,8 +38,9 @@ const customJestConfig = {
 
 async function jestConfig() {
   const nextJestConfig = await createJestConfig(customJestConfig)()
-  nextJestConfig.transformIgnorePatterns[0] =
-    '/node_modules/(?!(uuid|unicode-emoji)/)'
+  nextJestConfig.transformIgnorePatterns[0] = `/node_modules/(?!(${esmPackages.join(
+    '|'
+  )})/)`
   return nextJestConfig
 }
 

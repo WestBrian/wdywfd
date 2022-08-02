@@ -54,7 +54,6 @@ export const RecipeSearchSection: FC<RecipeSearchSectionProps> = () => {
   const query = useSelector((state: RootState) => state.recipeSearch.query)
   const tag = useSelector((state: RootState) => state.recipeSearch.selectedTag)
   const tags = useSelector((state: RootState) => state.recipeSearch.tags)
-  const overflowColor = useColorModeValue('gray.200', 'gray.800')
 
   const { getRadioProps, getRootProps } = useRadioGroup({
     defaultValue: tag,

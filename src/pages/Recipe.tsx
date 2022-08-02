@@ -18,6 +18,7 @@ import { RecipeDetails } from '../components/RecipeDetails'
 import { ClockIcon } from '@heroicons/react/solid'
 import { RecipeBadges } from '../components/RecipeBadges'
 import { RecipeSummary } from '../components/RecipeSummary'
+import { RecipeMenu } from '../components/RecipeMenu'
 
 export interface RecipeProps {
   recipe: InlineResponse2004
@@ -31,19 +32,12 @@ export const Recipe: FC<RecipeProps> = ({ recipe }) => {
       <VStack w={'full'} spacing={6}>
         <Flex w={'full'} justify={'space-between'} align={'center'}>
           <IconButton
-            variant={'link'}
-            justifyContent={'flex-start'}
             aria-label={'back'}
             icon={<ArrowLeftIcon width={20} />}
             onClick={() => router.back()}
           />
           <Heading fontSize={'lg'}>{recipe.title}</Heading>
-          <IconButton
-            variant={'link'}
-            justifyContent={'flex-end'}
-            aria-label={'options'}
-            icon={<DotsHorizontalIcon width={20} />}
-          />
+          <RecipeMenu recipe={recipe} />
         </Flex>
         <Box
           w={'full'}

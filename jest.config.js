@@ -11,6 +11,8 @@ const esmPackages = [
   'ranges-push',
   'string-collapse-leading-whitespace',
   'string-left-right',
+  'firebase',
+  '@firebase',
 ]
 
 const createJestConfig = nextJest({

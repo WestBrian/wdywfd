@@ -1,31 +1,64 @@
-import React, { type FC, useState } from 'react'
-import { Text, Button } from '@chakra-ui/react'
+import React, { type FC, useState, useRef } from 'react'
+import { Text, Button, Box, Collapse, useDimensions } from '@chakra-ui/react'
 import { stripHtml } from 'string-strip-html'
 import truncate from 'lodash/truncate'
+
+const truncateLength = 175
 
 export interface RecipeSummaryProps {
   summary: string
 }
 
 export const RecipeSummary: FC<RecipeSummaryProps> = ({ summary }) => {
-  const [showMore, setShowMore] = useState(false)
+  const ref = useRef(null)
+  const dimensions = useDimensions(ref)
 
   const sanitizedText = stripHtml(summary).result
-  const truncatedText = showMore
-    ? sanitizedText
-    : truncate(sanitizedText, { length: 175 })
+
+  const [showMore, setShowMore] = useState(false)
+  const [shouldTruncate, setShouldTruncate] = useState(
+    sanitizedText.length > truncateLength
+  )
+
+  const truncatedText = shouldTruncate
+    ? truncate(sanitizedText, { length: truncateLength })
+    : sanitizedText
+
+  function handleClick() {
+    if (shouldTruncate) {
+      setShouldTruncate(false)
+    }
+
+    setShowMore((showMore) => !showMore)
+  }
+
+  function handleAnimationComplete() {
+    if (!showMore) {
+      setShouldTruncate(true)
+    }
+  }
 
   return (
-    <Text fontSize={'md'}>
-      {truncatedText}{' '}
-      <Button
-        variant={'link'}
-        colorScheme={'green'}
-        onClick={() => setShowMore(!showMore)}
-        data-testid={'show-more-button'}
+    <Box w={'full'}>
+      <Collapse
+        startingHeight={dimensions?.contentBox.height || 47}
+        in={showMore}
+        onAnimationComplete={handleAnimationComplete}
       >
-        {showMore ? 'Show less' : 'Show more'}
-      </Button>
-    </Text>
+        <Text ref={ref} fontSize={'md'}>
+          {truncatedText}{' '}
+          {sanitizedText.length > truncateLength && (
+            <Button
+              variant={'link'}
+              colorScheme={'green'}
+              onClick={handleClick}
+              data-testid={'show-more-button'}
+            >
+              {showMore ? 'Show less' : 'Show more'}
+            </Button>
+          )}
+        </Text>
+      </Collapse>
+    </Box>
   )
 }

@@ -32,3 +32,6 @@ jobs:
         with:
           build: npm run build
           start: npm start
+        env:
+          CYPRESS_TEST_UID: ${{ secrets.CYPRESS_TEST_UID }}
+          SERVICE_ACCOUNT: ${{ secrets.SERVICE_ACCOUNT }}

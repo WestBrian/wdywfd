@@ -30,7 +30,7 @@ export const Recipe: FC<RecipeProps> = ({ recipe }) => {
   return (
     <Container px={[6, 12]} py={6} maxW={'container.lg'}>
       <VStack w={'full'} spacing={6}>
-        <Flex w={'full'} justify={'space-between'} align={'center'}>
+        <Flex w={'full'} justify={'space-between'} align={'center'} gap={6}>
           <IconButton
             aria-label={'back'}
             icon={<ArrowLeftIcon width={20} />}

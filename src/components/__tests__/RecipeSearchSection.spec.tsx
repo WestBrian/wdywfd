@@ -48,5 +48,5 @@ describe('<RecipeSearchSection />', () => {
     expect(queryBadge('Gluten Free')).not.toBeInTheDocument()
     expect(queryBadge('No Dairy')).not.toBeInTheDocument()
     expect(queryBadge('30 minutes or less')).not.toBeInTheDocument()
-  })
+  }, 10000)
 })

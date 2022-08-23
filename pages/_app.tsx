@@ -1,16 +1,28 @@
 import type { AppProps } from 'next/app'
 import { ChakraProvider } from '@chakra-ui/react'
 import theme from '../src/theme'
-import { Provider as ReduxProvider } from 'react-redux'
-import { getStore } from '../src/store'
-import React, { useMemo } from 'react'
+import React from 'react'
 import { Layout } from '../src/components/Layout'
 import { FirebaseAppProvider } from 'reactfire'
 import { FirebaseProviders } from '../src/components/FirebaseProviders'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+import { Provider as JotaiProvider } from 'jotai'
+import { isLowerEnv } from '../src/utils/isEnv'
 
-if (process.env.NEXT_PUBLIC_API_MOCKING === 'enabled') {
+if (isLowerEnv && process.env.NEXT_PUBLIC_API_MOCKING === 'enabled') {
   require('../src/lib/mocks')
 }
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnMount: false,
+      refetchOnWindowFocus: false,
+      retry: 1,
+    },
+  },
+})
 
 export const firebaseConfig = {
   apiKey: 'AIzaSyBXIixYPVYJATHkJZVmj9RSGY2-a3jlYxo',
@@ -23,20 +35,21 @@ export const firebaseConfig = {
 }
 
 function MyApp({ Component, pageProps }: AppProps) {
-  const store = useMemo(() => getStore(), [])
-
   return (
-    <ReduxProvider store={store}>
-      <FirebaseAppProvider firebaseConfig={firebaseConfig}>
-        <FirebaseProviders>
-          <ChakraProvider theme={theme}>
-            <Layout>
-              <Component {...pageProps} />
-            </Layout>
-          </ChakraProvider>
-        </FirebaseProviders>
-      </FirebaseAppProvider>
-    </ReduxProvider>
+    <JotaiProvider>
+      <QueryClientProvider client={queryClient}>
+        <FirebaseAppProvider firebaseConfig={firebaseConfig}>
+          <FirebaseProviders>
+            <ChakraProvider theme={theme}>
+              <Layout>
+                <Component {...pageProps} />
+              </Layout>
+            </ChakraProvider>
+          </FirebaseProviders>
+        </FirebaseAppProvider>
+        <ReactQueryDevtools />
+      </QueryClientProvider>
+    </JotaiProvider>
   )
 }
 

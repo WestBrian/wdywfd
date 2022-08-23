@@ -13,10 +13,11 @@ const animation: Variants = {
 }
 
 export interface StepDetailProps {
-  step: InlineResponse20013Steps
+  step: string
+  num: number
 }
 
-export const StepDetail: FC<StepDetailProps> = ({ step }) => {
+export const StepDetail: FC<StepDetailProps> = ({ step, num }) => {
   const bg = useColorModeValue('gray.200', 'gray.700')
 
   return (
@@ -37,9 +38,9 @@ export const StepDetail: FC<StepDetailProps> = ({ step }) => {
           fontWeight={'semibold'}
           color={'gray.900'}
         >
-          {step.number}
+          {num}
         </Square>
-        <Text fontSize={'sm'}>{step.step}</Text>
+        <Text fontSize={'sm'}>{step}</Text>
       </HStack>
     </Box>
   )

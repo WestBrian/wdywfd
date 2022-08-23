@@ -1,21 +1,31 @@
 import React, { FC, ReactElement } from 'react'
 import { render, RenderOptions } from '@testing-library/react'
 import { ChakraProvider } from '@chakra-ui/react'
-import { Provider as ReduxProvider } from 'react-redux'
-import { getStore } from './src/store'
 import { FirebaseAppProvider } from 'reactfire'
 import { firebaseConfig } from './pages/_app'
 import { FirebaseProviders } from './src/components/FirebaseProviders'
+import { QueryClientProvider, QueryClient } from '@tanstack/react-query'
+import { Provider as JotaiProvider } from 'jotai'
 
 const AllTheProviders: FC<{ children: React.ReactNode }> = ({ children }) => {
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        retry: false,
+      },
+    },
+  })
+
   return (
-    <ReduxProvider store={getStore()}>
-      <FirebaseAppProvider firebaseConfig={firebaseConfig}>
-        <FirebaseProviders>
-          <ChakraProvider>{children}</ChakraProvider>
-        </FirebaseProviders>
-      </FirebaseAppProvider>
-    </ReduxProvider>
+    <JotaiProvider>
+      <QueryClientProvider client={queryClient}>
+        <FirebaseAppProvider firebaseConfig={firebaseConfig}>
+          <FirebaseProviders>
+            <ChakraProvider>{children}</ChakraProvider>
+          </FirebaseProviders>
+        </FirebaseAppProvider>
+      </QueryClientProvider>
+    </JotaiProvider>
   )
 }
 

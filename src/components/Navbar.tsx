@@ -18,7 +18,6 @@ import {
   UserIcon,
 } from '@heroicons/react/solid'
 import Link from 'next/link'
-import { useBgColor } from '../hooks/useBgColor'
 import { useRouter } from 'next/router'
 
 const iconWidth = 30
@@ -94,7 +93,7 @@ export const Navbar = forwardRef<HTMLDivElement, NavbarProps>((_, ref) => {
     <SunIcon width={iconWidth} />
   )
   const colorModeText = useColorModeValue('Dark mode', 'Light mode')
-  const bg = useBgColor()
+  const bg = useColorModeValue('gray.50', 'gray.900')
   const borderColor = useColorModeValue('gray.400', 'gray.600')
 
   return (

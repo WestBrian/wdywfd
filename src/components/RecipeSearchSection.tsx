@@ -1,28 +1,27 @@
-import { SearchIcon } from '@chakra-ui/icons'
 import {
-  InputGroup,
-  InputLeftElement,
-  Input,
-  FormControl,
-  FormLabel,
   Button,
-  IconButton,
   HStack,
   VStack,
   Box,
-  VisuallyHidden,
+  Badge,
   useColorModeValue,
   useRadio,
   useRadioGroup,
   chakra,
 } from '@chakra-ui/react'
-import React, { type FC, useState } from 'react'
-import { AdjustmentsIcon } from '@heroicons/react/solid'
+import React, { type FC, useState, useEffect, useRef } from 'react'
 import { useWindowScroll } from 'beautiful-react-hooks'
-import { useSelector, useDispatch } from 'react-redux'
-import { RootState } from '../store'
-import { setQuery, setTag } from '../reducers/recipe-search'
 import { px } from '../pages/RecipeSearch'
+import { RecipeSearchForm } from './RecipeSearchForm'
+import { useAtom } from 'jotai'
+import {
+  tags,
+  tagAtom,
+  cuisineAtom,
+  dietAtom,
+  intoleranceAtom,
+  maxReadyTimeAtom,
+} from '../store'
 
 interface RecipeTagProps {
   tag: string
@@ -50,18 +49,21 @@ const RecipeTag: FC<RecipeTagProps> = ({ tag, ...radioProps }) => {
 export interface RecipeSearchSectionProps {}
 
 export const RecipeSearchSection: FC<RecipeSearchSectionProps> = () => {
-  const dispatch = useDispatch()
-  const query = useSelector((state: RootState) => state.recipeSearch.query)
-  const tag = useSelector((state: RootState) => state.recipeSearch.selectedTag)
-  const tags = useSelector((state: RootState) => state.recipeSearch.tags)
+  const [tag, setTag] = useAtom(tagAtom)
+  const [cuisine] = useAtom(cuisineAtom)
+  const [diet] = useAtom(dietAtom)
+  const [intolerance] = useAtom(intoleranceAtom)
+  const [maxReadyTime] = useAtom(maxReadyTimeAtom)
+  const tagContainerRef = useRef<HTMLDivElement>(null)
+
+  const showBadges = !!cuisine || !!diet || !!intolerance || !!maxReadyTime
 
   const { getRadioProps, getRootProps } = useRadioGroup({
     defaultValue: tag,
-    onChange: (value) => dispatch(setTag(value as any)),
+    onChange: setTag,
   })
 
   const [showShadow, setShowShadow] = useState(false)
-  const iconColor = useColorModeValue('gray.300', 'gray.900')
   const bgColor = useColorModeValue('gray.100', 'gray.800')
   const onWindowScroll = useWindowScroll()
 
@@ -77,6 +79,19 @@ export const RecipeSearchSection: FC<RecipeSearchSectionProps> = () => {
   /* istanbul ignore next */
   const shadowValue = showShadow ? '2xl' : 'none'
 
+  useEffect(() => {
+    const tagContainer = tagContainerRef.current
+    if (tagContainer) {
+      const selectedElm =
+        tagContainer.querySelector<HTMLDivElement>('*[data-checked]')
+      if (selectedElm) {
+        tagContainer.scrollTo({
+          left: selectedElm.offsetLeft,
+        })
+      }
+    }
+  }, [tagContainerRef])
+
   return (
     <VStack
       spacing={6}
@@ -90,58 +105,34 @@ export const RecipeSearchSection: FC<RecipeSearchSectionProps> = () => {
       zIndex={10}
       boxShadow={[shadowValue, null, 'none']}
     >
-      <HStack w={'full'}>
-        <FormControl>
-          <VisuallyHidden>
-            <FormLabel htmlFor={'query'}>Recipe Query</FormLabel>
-          </VisuallyHidden>
-          <InputGroup>
-            <InputLeftElement pointerEvents={'none'}>
-              <SearchIcon color={iconColor} />
-            </InputLeftElement>
-            <Input
-              id={'query'}
-              value={query}
-              placeholder={'Search recipes'}
-              boxShadow={'sm'}
-              onChange={(event) => dispatch(setQuery(event.target.value))}
-            />
-          </InputGroup>
-        </FormControl>
-        <IconButton
-          colorScheme={'teal'}
-          aria-label={'Filters'}
-          icon={<AdjustmentsIcon width={20} />}
-        />
-      </HStack>
+      <RecipeSearchForm />
       <Box position={'relative'} w={'full'}>
-        <HStack {...getRootProps()} w={'full'} overflowX={'scroll'}>
+        <HStack
+          {...getRootProps({}, tagContainerRef)}
+          w={'full'}
+          overflowX={'scroll'}
+          sx={{
+            '::-webkit-scrollbar': {
+              display: 'none',
+            },
+          }}
+          data-testid={'tag-container'}
+        >
           {tags.map((tag) => (
             <RecipeTag key={tag} tag={tag} {...getRadioProps({ value: tag })} />
           ))}
         </HStack>
-        {/* <Box
-          position={'absolute'}
-          top={0}
-          right={0}
-          bottom={0}
-          left={'85%'}
-          pointerEvents={'none'}
-          bgGradient={`linear(to-l, ${overflowColor}, transparent)`}
-        /> */}
       </Box>
+      {showBadges && (
+        <HStack w={'full'}>
+          {cuisine && <Badge colorScheme={'green'}>{cuisine}</Badge>}
+          {diet && <Badge colorScheme={'green'}>{diet}</Badge>}
+          {intolerance && <Badge colorScheme={'green'}>No {intolerance}</Badge>}
+          {maxReadyTime && (
+            <Badge colorScheme={'green'}>{maxReadyTime} minutes or less</Badge>
+          )}
+        </HStack>
+      )}
     </VStack>
   )
 }
-
-/*
-background-image: linear-gradient(to right, white, white),
-    linear-gradient(to right, white, white),
-    linear-gradient(to right, rgba(0, 0, 0, 0.25), rgba(255, 255, 255, 0)),
-    linear-gradient(to left, rgba(0, 0, 0, 0.25), rgba(255, 255, 255, 0));
-  background-position: left center, right center, left center, right center;
-  background-repeat: no-repeat;
-  background-color: white;
-  background-size: 20px 100%, 20px 100%, 10px 100%, 10px 100%;
-  background-attachment: local, local, scroll, scroll;
-*/

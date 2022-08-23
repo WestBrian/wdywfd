@@ -1,11 +1,15 @@
 import React, { type FC } from 'react'
-import type { InlineResponse2006Recipes } from '../../spoonacular-sdk'
+import type {
+  InlineResponse2006Recipes,
+  InlineResponse200Results,
+} from '../../spoonacular-sdk'
 import Image from 'next/image'
 import { Box, Text, VStack } from '@chakra-ui/react'
 import Link from 'next/link'
+import get from 'lodash/get'
 
 export interface RecipeCardProps {
-  recipe: InlineResponse2006Recipes
+  recipe: InlineResponse2006Recipes | InlineResponse200Results
   priority?: boolean
 }
 
@@ -13,6 +17,9 @@ export const RecipeCard: FC<RecipeCardProps> = ({
   recipe,
   priority = false,
 }) => {
+  const extendedIngredients = get(recipe, 'extendedIngredients')
+  const readyInMinutes = get(recipe, 'readyInMinutes')
+
   return (
     <Link href={`/recipe/${recipe.id}`} prefetch={false}>
       <Box
@@ -21,7 +28,7 @@ export const RecipeCard: FC<RecipeCardProps> = ({
         overflow={'hidden'}
         marginX={'auto'}
         w={['full']}
-        h={[350, null, 275]}
+        h={275}
         position={'relative'}
         cursor={'pointer'}
       >
@@ -47,10 +54,11 @@ export const RecipeCard: FC<RecipeCardProps> = ({
             >
               {recipe.title}
             </Text>
-            <Text color={'white'}>
-              {recipe.extendedIngredients.length} Ingredients |{' '}
-              {recipe.readyInMinutes} min
-            </Text>
+            {extendedIngredients && readyInMinutes && (
+              <Text color={'white'}>
+                {extendedIngredients.length} Ingredients | {readyInMinutes} min
+              </Text>
+            )}
           </VStack>
         </Box>
       </Box>

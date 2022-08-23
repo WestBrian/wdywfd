@@ -5,3 +5,5 @@ Object.defineProperty(window, 'scrollTo', {
   writable: true,
   value: jest.fn(),
 })
+
+Element.prototype.scrollTo = jest.fn()

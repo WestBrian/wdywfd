@@ -59,7 +59,29 @@ export const failBackendRecipeNoImage = rest.get(
   }
 )
 
-export const handlers = [
-  successRandomRecipeNoImage,
-  successBackendRecipeNoImage,
-]
+export const successSearchRecipe = rest.get(
+  '/api/searchRecipes',
+  (_, res, ctx) => {
+    return res(
+      ctx.json({
+        offset: 0,
+        number: 6,
+        totalResults: 200,
+        results: arrMap(6, getRandomRecipe),
+      })
+    )
+  }
+)
+
+export const failSearchRecipe = rest.get(
+  '/api/searchRecipes',
+  (_, res, ctx) => {
+    return res(
+      ctx.delay(1500),
+      ctx.status(500),
+      ctx.json({ message: 'there was an error' })
+    )
+  }
+)
+
+export const handlers = [failRandomRecipe, successBackendRecipeNoImage]

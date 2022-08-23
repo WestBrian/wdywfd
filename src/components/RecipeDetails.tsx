@@ -7,7 +7,6 @@ import {
 import { ServingsButton } from './ServingsButton'
 import { IngredientDetail } from './IngredientDetail'
 import { IngredientsStepsToggle } from './IngredientsStepsToggle'
-import get from 'lodash/get'
 import { StepDetail } from './StepDetail'
 import { motion, Variants } from 'framer-motion'
 
@@ -39,7 +38,15 @@ export const RecipeDetails: FC<RecipeDetailsProps> = ({
   const [adjustedServings, setAdjustedServings] = useState(servings)
   const [tab, setTab] = useState<'ingredients' | 'steps'>('ingredients')
 
-  const steps = get(instructions, '[0].steps', []) as InlineResponse20013Steps[]
+  const steps = instructions
+    .reduce<string[]>((prev, curr) => {
+      const innerSteps = curr.steps.reduce<string[]>(
+        (p, c) => [...p, c.step],
+        []
+      )
+      return [...prev, curr.name, ...innerSteps]
+    }, [])
+    .filter((step) => !!step)
 
   return (
     <VStack w={'full'} spacing={6}>
@@ -92,8 +99,8 @@ export const RecipeDetails: FC<RecipeDetailsProps> = ({
           initial={'hidden'}
           animate={'shown'}
         >
-          {steps.map((step) => (
-            <StepDetail key={`step-${step.number}`} step={step} />
+          {steps.map((step, index) => (
+            <StepDetail key={`step-${index}`} step={step} num={index + 1} />
           ))}
         </SimpleGrid>
       )}

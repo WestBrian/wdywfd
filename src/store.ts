@@ -1,20 +1,84 @@
-import { configureStore } from '@reduxjs/toolkit'
-import { setupListeners } from '@reduxjs/toolkit/query/react'
-import { recipeSearch } from './reducers/recipe-search'
+import { atom } from 'jotai'
 
-export const getStore = () => {
-  const store = configureStore({
-    reducer: {
-      [recipeSearch.name]: recipeSearch.reducer,
-    },
-  })
+export const tagAtom = atom('all')
+export const queryAtom = atom('')
+export const cuisineAtom = atom('')
+export const dietAtom = atom('')
+export const intoleranceAtom = atom('')
+export const maxReadyTimeAtom = atom('')
 
-  setupListeners(store.dispatch)
+export const tags = [
+  'all',
+  'main course',
+  'side dish',
+  'dessert',
+  'appetizer',
+  'salad',
+  'bread',
+  'breakfast',
+  'soup',
+  'beverage',
+  'sauce',
+  'marinade',
+  'fingerfood',
+  'snack',
+  'drink',
+] as const
 
-  return store
-}
+export const cuisines = [
+  'African',
+  'American',
+  'British',
+  'Cajun',
+  'Caribbean',
+  'Chinese',
+  'Eastern European',
+  'European',
+  'French',
+  'German',
+  'Greek',
+  'Indian',
+  'Irish',
+  'Italian',
+  'Japanese',
+  'Jewish',
+  'Korean',
+  'Latin American',
+  'Mediterranean',
+  'Mexican',
+  'Middle Eastern',
+  'Nordic',
+  'Southern',
+  'Spanish',
+  'Thai',
+  'Vietnamese',
+] as const
 
-type Store = ReturnType<typeof getStore>
+export const diets = [
+  'Gluten Free',
+  'Ketogenic',
+  'Vegetarian',
+  'Lacto-Vegetarian',
+  'Ovo-Vegetarian',
+  'Vegan',
+  'Pescetarian',
+  'Paleo',
+  'Primal',
+  'Low FODMAP',
+  'Whole30',
+] as const
 
-export type RootState = ReturnType<Store['getState']>
-export type AppDispatch = Store['dispatch']
+export const intolerances = [
+  'Dairy',
+  'Egg',
+  'Gluten',
+  'Grain',
+  'Peanut',
+  'Seafood',
+  'Sesame',
+  'Shellfish',
+  'Soy',
+  'Sulfite',
+  'Tree Nut',
+  'Wheat',
+] as const

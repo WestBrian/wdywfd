@@ -14,8 +14,8 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
-    "types": ["jest"]
+    "types": ["node", "jest", "@testing-library/jest-dom"]
   },
-  "include": ["next-env.d.ts", "{src,pages}/**/*.ts", "{src,pages}/**/*.tsx"],
-  "exclude": ["node_modules", "cypress"]
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "exclude": ["node_modules", "cypress", "spoonacular-sdk", "cypress.config.ts"]
 }

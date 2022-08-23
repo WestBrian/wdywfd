@@ -11,6 +11,16 @@ const InputStyles: ComponentStyleConfig = {
   },
 }
 
+const SelectStyles: ComponentStyleConfig = {
+  variants: {
+    outline: (props: StyleFunctionProps) => ({
+      field: {
+        bg: mode('white', 'whiteAlpha.300')(props),
+      },
+    }),
+  },
+}
+
 const ButtonStyles: ComponentStyleConfig = {
   variants: {
     solid: (props: StyleFunctionProps) => ({
@@ -36,7 +46,9 @@ const theme = extendTheme({
   },
   components: {
     Input: InputStyles,
+    NumberInput: InputStyles,
     Button: ButtonStyles,
+    Select: SelectStyles,
   },
 })
 

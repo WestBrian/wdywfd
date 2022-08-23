@@ -1,7 +1,7 @@
 import * as unicodeEmojis from 'unicode-emoji'
 import pluralize from 'pluralize'
 
-const forceEmoji = {
+const forceEmoji: { [x: string]: string } = {
   beef: 'cut of meat',
   macaroni: 'spaghetti',
   water: 'droplet',

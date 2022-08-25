@@ -17,7 +17,6 @@ export const successRandomRecipeNoImage = rest.get(
   '/api/getRandomRecipe',
   (_, res, ctx) => {
     return res(
-      ctx.delay(1000),
       ctx.json({
         recipes: arrMap(6, getRandomRecipe).map((recipe) => ({
           ...recipe,
@@ -44,7 +43,7 @@ export const successBackendRecipeNoImage = rest.get(
   (_, res, ctx) => {
     const recipe = getRandomRecipe()
 
-    return res(ctx.delay(1500), ctx.json({ ...recipe, image: undefined }))
+    return res(ctx.json({ ...recipe, image: undefined }))
   }
 )
 
@@ -84,4 +83,7 @@ export const failSearchRecipe = rest.get(
   }
 )
 
-export const handlers = [failRandomRecipe, successBackendRecipeNoImage]
+export const handlers = [
+  successRandomRecipeNoImage,
+  successBackendRecipeNoImage,
+]

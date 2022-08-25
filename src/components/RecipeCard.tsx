@@ -7,6 +7,7 @@ import Image from 'next/image'
 import { Box, Text, VStack } from '@chakra-ui/react'
 import Link from 'next/link'
 import get from 'lodash/get'
+import { motion } from 'framer-motion'
 
 export interface RecipeCardProps {
   recipe: InlineResponse2006Recipes | InlineResponse200Results
@@ -21,7 +22,7 @@ export const RecipeCard: FC<RecipeCardProps> = ({
   const readyInMinutes = get(recipe, 'readyInMinutes')
 
   return (
-    <Link href={`/recipe/${recipe.id}`} prefetch={false}>
+    <Link href={`/recipe/${recipe.id}`} prefetch={false} passHref>
       <Box
         as={'a'}
         borderRadius={'lg'}

@@ -3,6 +3,8 @@ import Head from 'next/head'
 import { Recipe, RecipeProps } from '../../src/pages/Recipe'
 import { recipeApi } from '../../src/lib/spoonacular'
 import type { InlineResponse2004 } from '../../spoonacular-sdk'
+import { Container, VStack, Skeleton } from '@chakra-ui/react'
+import { useRouter } from 'next/router'
 
 function getRecipeInformation(id: string): Promise<InlineResponse2004> {
   return new Promise((resolve, reject) => {
@@ -23,14 +25,21 @@ function getRecipeInformation(id: string): Promise<InlineResponse2004> {
 }
 
 const RecipePage: NextPage<RecipeProps> = ({ recipe }) => {
-  return (
-    <div>
-      <Head>
-        <title>Whats For Dinner</title>
-      </Head>
-      <Recipe recipe={recipe} />
-    </div>
-  )
+  const router = useRouter()
+
+  if (router.isFallback) {
+    return (
+      <Container px={[6, 12]} py={6} maxW={'container.lg'}>
+        <VStack w={'full'} spacing={6}>
+          <Skeleton w={'full'} h={'40px'} />
+          <Skeleton w={'full'} h={[200, 275, 350]} borderRadius={'lg'} />
+          <Skeleton w={'full'} h={'72px'} />
+        </VStack>
+      </Container>
+    )
+  }
+
+  return <Recipe recipe={recipe} />
 }
 
 export const getStaticProps: GetStaticProps<
@@ -44,15 +53,13 @@ export const getStaticProps: GetStaticProps<
     props: {
       recipe,
     },
-    // Every 15 days
-    revalidate: 60 * 1440 * 15,
   }
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
   return {
     paths: [],
-    fallback: 'blocking',
+    fallback: true,
   }
 }
 

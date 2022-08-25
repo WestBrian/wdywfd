@@ -4,6 +4,9 @@ const nextConfig = {
   images: {
     domains: ['spoonacular.com', 'lh3.googleusercontent.com'],
   },
+  experimental: {
+    scrollRestoration: true,
+  },
 }
 
 module.exports = nextConfig

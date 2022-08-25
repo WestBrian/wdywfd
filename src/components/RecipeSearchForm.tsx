@@ -181,13 +181,13 @@ export const RecipeSearchForm: FC<RecipeSearchFormProps> = ({}) => {
                   </FormControl>
                   <FormControl>
                     <FormLabel htmlFor={'maxReadyTime'}>
-                      Max Ready Time
+                      Max Ready Time (minutes)
                     </FormLabel>
                     <NumberInput
                       id={'maxReadyTime'}
                       defaultValue={maxReadyTime}
                     >
-                      <NumberInputField placeholder={'20'} />
+                      <NumberInputField />
                       <NumberInputStepper>
                         <NumberIncrementStepper />
                         <NumberDecrementStepper />
@@ -205,7 +205,7 @@ export const RecipeSearchForm: FC<RecipeSearchFormProps> = ({}) => {
                   colorScheme={'red'}
                   onClick={handleReset}
                 >
-                  Reset filters
+                  Reset
                 </Button>
                 <Button
                   type={'submit'}

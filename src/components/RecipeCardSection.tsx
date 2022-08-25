@@ -150,7 +150,7 @@ export const RecipeCardSection: FC<RecipeCardSectionProps> = () => {
     <VStack w={'full'}>
       {recipes.length > 0 ? (
         <>
-          <SimpleGrid w={'full'} px={px} columns={[1, 1, 2, 3]} spacing={6}>
+          <SimpleGrid w={'full'} px={px} columns={[1, 1, 2, 3, 4]} spacing={6}>
             {recipes.map(
               (
                 recipe: InlineResponse200Results | InlineResponse2006Recipes,

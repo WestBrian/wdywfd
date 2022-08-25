@@ -34,7 +34,7 @@ describe('<RecipeSearchSection />', () => {
     await user.selectOptions(screen.getByLabelText('Cuisine'), 'African')
     await user.selectOptions(screen.getByLabelText('Diets'), 'Gluten Free')
     await user.selectOptions(screen.getByLabelText('Intolerances'), 'Dairy')
-    await user.type(screen.getByLabelText('Max Ready Time'), '30')
+    await user.type(screen.getByLabelText('Max Ready Time (minutes)'), '30')
 
     await user.click(screen.getByText('Update filters'))
     expect(queryBadge('African')).toBeInTheDocument()
@@ -43,7 +43,7 @@ describe('<RecipeSearchSection />', () => {
     expect(queryBadge('30 minutes or less')).toBeInTheDocument()
 
     await user.click(screen.getByLabelText('Filters'))
-    await user.click(screen.getByText('Reset filters'))
+    await user.click(screen.getByText('Reset'))
     expect(queryBadge('African')).not.toBeInTheDocument()
     expect(queryBadge('Gluten Free')).not.toBeInTheDocument()
     expect(queryBadge('No Dairy')).not.toBeInTheDocument()

@@ -1,5 +1,4 @@
 /* istanbul ignore file */
-
 import React, { type FC } from 'react'
 import { Box, Heading, Button } from '@chakra-ui/react'
 import { useAuth, useSigninCheck } from 'reactfire'

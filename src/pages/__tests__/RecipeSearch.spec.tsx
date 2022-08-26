@@ -2,7 +2,11 @@ import { render, screen, waitFor } from '../../../test-utils'
 import { RecipeSearch, RecipeSearchProps } from '../RecipeSearch'
 import userEvent from '@testing-library/user-event'
 import { defaultServer } from '../../lib/mocks/test-server'
-import { failRandomRecipe, failSearchRecipe } from '../../lib/mocks/handlers'
+import {
+  failOverLimitRandomRecipe,
+  failRandomRecipe,
+  failSearchRecipe,
+} from '../../lib/mocks/handlers'
 import React from 'react'
 
 const defaultValues: RecipeSearchProps = {}
@@ -99,6 +103,18 @@ describe('<RecipeSearch />', () => {
     expect(
       await screen.findByText(
         'There was an issue fetching the recipes',
+        {},
+        { timeout: 4000 }
+      )
+    ).toBeInTheDocument()
+  })
+
+  it('renders a custom error on over limit', async () => {
+    defaultServer.use(failOverLimitRandomRecipe)
+    setup()
+    expect(
+      await screen.findByText(
+        'The daily search limit for recipes has been reached, please try again tomorrow',
         {},
         { timeout: 4000 }
       )

@@ -9,17 +9,19 @@ function getRandomRecipes(tag?: string) {
     tags = tag
   }
 
-  return new Promise<InlineResponse2006>((resolve) => {
+  return new Promise<InlineResponse2006>((resolve, reject) => {
     recipeApi.getRandomRecipes(
       {
         limitLicense: true,
         tags,
         _number: 6,
       },
-      (error: {}, data: InlineResponse2006) => {
-        if (!error) {
-          resolve(data)
+      (error: Error, data: InlineResponse2006) => {
+        if (error) {
+          reject(error)
         }
+
+        resolve(data)
       }
     )
   })
@@ -27,11 +29,16 @@ function getRandomRecipes(tag?: string) {
 
 const handler = async (
   req: NextApiRequest,
-  res: NextApiResponse<InlineResponse2006>
+  res: NextApiResponse<InlineResponse2006 | {}>
 ) => {
   const tag = req.query.tag as string
-  const data = await getRandomRecipes(tag)
-  res.status(200).json(data)
+  try {
+    const data = await getRandomRecipes(tag)
+    res.status(200).json(data)
+  } catch (err: any) {
+    const isOverLimit = err.message === 'Payment Required'
+    res.status(500).json(isOverLimit ? { isOverLimit } : {})
+  }
 }
 
 export default handler

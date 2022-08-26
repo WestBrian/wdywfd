@@ -18,6 +18,13 @@ interface RandomRecipesResult extends InlineResponse2006 {
 export async function get<T = any>(path: string): Promise<T> {
   const res = await fetch(path)
   if (!res.ok) {
+    const contentType = res.headers.get('content-type')
+    if (contentType && contentType.includes('application/json')) {
+      const err = await res.json()
+      if (err.isOverLimit) {
+        throw new Error('over limit')
+      }
+    }
     throw new Error(res.statusText)
   }
   return await res.json()
@@ -33,6 +40,6 @@ export function searchRecipes(options: SearchOptions) {
 export function getRandomRecipes(tag: string) {
   const urlParams = new URLSearchParams({ tag })
   return get<RandomRecipesResult>(
-    `/api/getRandomRecipe?${urlParams.toString()}`
+    `/api/getRandomRecipes?${urlParams.toString()}`
   )
 }

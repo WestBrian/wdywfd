@@ -49,7 +49,8 @@ export const RecipeCardSection: FC<RecipeCardSectionProps> = () => {
     data: randomData,
     isFetching: randomFetching,
     isFetchingNextPage: randomFetchingNextPage,
-    isError: randomError,
+    isError: randomIsError,
+    error: randomError,
     fetchNextPage: fetchNextRandomPage,
   } = useInfiniteQuery(
     ['random', tag],
@@ -64,7 +65,7 @@ export const RecipeCardSection: FC<RecipeCardSectionProps> = () => {
     data: searchData,
     isFetching: searchFetching,
     isFetchingNextPage: searchFetchingNextPage,
-    isError: searchError,
+    isError: searchIsError,
     fetchNextPage: fetchNextSearchPage,
   } = useInfiniteQuery(
     ['search', debouncedQuery, cuisine, diet, tag, intolerance, maxReadyTime],
@@ -106,7 +107,7 @@ export const RecipeCardSection: FC<RecipeCardSectionProps> = () => {
     (randomFetching && !randomFetchingNextPage) ||
     (searchFetching && !searchFetchingNextPage)
   const isFetchingNextPage = randomFetchingNextPage || searchFetchingNextPage
-  const isError = randomError || searchError
+  const isError = randomIsError || searchIsError
 
   function fetchNextPage() {
     showSearchRecipes ? fetchNextSearchPage() : fetchNextRandomPage()
@@ -114,6 +115,7 @@ export const RecipeCardSection: FC<RecipeCardSectionProps> = () => {
 
   const toastId = 'search-recipe'
   const toast = useToast()
+  const isOverLimit = get(randomError, 'message') === 'over limit'
 
   useEffect(() => {
     if (isError && !toast.isActive(toastId)) {
@@ -137,10 +139,19 @@ export const RecipeCardSection: FC<RecipeCardSectionProps> = () => {
 
   if (isError) {
     return (
-      <HStack w={'full'} px={6} justify={'center'}>
+      <HStack
+        spacing={4}
+        w={'full'}
+        maxW={'450px'}
+        px={6}
+        justify={'center'}
+        alignSelf={'center'}
+      >
         <Icon as={ExclamationCircleIcon} color={'red.500'} />
         <Text color={'GrayText'} fontWeight={'semibold'}>
-          There was an issue fetching the recipes
+          {isOverLimit
+            ? 'The daily search limit for recipes has been reached, please try again tomorrow'
+            : 'There was an issue fetching the recipes'}
         </Text>
       </HStack>
     )

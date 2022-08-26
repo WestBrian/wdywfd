@@ -3,7 +3,7 @@ import { getRandomRecipe } from '../../../mock-data'
 import { arrMap } from '../../utils/arrMap'
 
 export const successRandomRecipe = rest.get(
-  '/api/getRandomRecipe',
+  '/api/getRandomRecipes',
   (_, res, ctx) => {
     return res(
       ctx.json({
@@ -14,7 +14,7 @@ export const successRandomRecipe = rest.get(
 )
 
 export const successRandomRecipeNoImage = rest.get(
-  '/api/getRandomRecipe',
+  '/api/getRandomRecipes',
   (_, res, ctx) => {
     return res(
       ctx.json({
@@ -28,10 +28,10 @@ export const successRandomRecipeNoImage = rest.get(
 )
 
 export const failRandomRecipe = rest.get(
-  '/api/getRandomRecipe',
+  '/api/getRandomRecipes',
   (_, res, ctx) => {
     return res(
-      ctx.delay(1500),
+      ctx.delay(250),
       ctx.status(500),
       ctx.json({ message: 'there was an error' })
     )
@@ -76,10 +76,17 @@ export const failSearchRecipe = rest.get(
   '/api/searchRecipes',
   (_, res, ctx) => {
     return res(
-      ctx.delay(1500),
+      ctx.delay(250),
       ctx.status(500),
       ctx.json({ message: 'there was an error' })
     )
+  }
+)
+
+export const failOverLimitRandomRecipe = rest.get(
+  '/api/getRandomRecipes',
+  (_, res, ctx) => {
+    return res(ctx.delay(250), ctx.status(500), ctx.json({ isOverLimit: true }))
   }
 )
 

@@ -20,7 +20,7 @@ jobs:
           node-version: 16.x
       - run: npm ci
       - run: npm run validate
-        name: Rules validations
+      - name: Rules validations
         uses: actions/setup-java@v3
         with:
           distribution: 'temurin'

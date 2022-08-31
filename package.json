@@ -3,17 +3,19 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "dev:mock": "NEXT_PUBLIC_API_MOCKING=enabled next dev",
+    "dev": "concurrently \"npm run firebase:emulators:start\" \"next dev\"",
+    "dev:mock": "NEXT_PUBLIC_API_MOCKING=enabled concurrently \"npm run firebase:emulators:start\" \"next dev\"",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
     "test": "jest",
     "test:watch": "jest --watch",
+    "test:rules": "firebase emulators:exec --only firestore \"jest --config=firebase.jest.config.js --detectOpenHandles --forceExit rules.spec\"",
     "test:coverage": "jest --collectCoverage",
     "cypress:open": "concurrently \"npm run dev\" \"cypress open\"",
     "cypress:mock": "concurrently \"npm run dev:mock\" \"cypress open\"",
     "cypress:run": "concurrently \"npm run dev\" \"cypress run\"",
+    "firebase:emulators:start": "firebase emulators:start",
     "format": "prettier --write \"{pages,src}/**/*\"",
     "typecheck": "tsc --noEmit",
     "validate": "npm run typecheck && npm run lint && npm run test:coverage -- --ci",
@@ -53,6 +55,7 @@
     "unicode-emoji": "^2.3.0"
   },
   "devDependencies": {
+    "@firebase/rules-unit-testing": "^2.0.4",
     "@ngneat/falso": "^5.7.0",
     "@tanstack/react-query-devtools": "^4.0.10",
     "@testing-library/cypress": "^8.0.3",
@@ -70,6 +73,7 @@
     "cypress-firebase": "^2.2.2",
     "eslint": "8.17.0",
     "eslint-config-next": "^12.2.0",
+    "firebase-tools": "^11.8.0",
     "husky": "^8.0.1",
     "jest": "^28.1.1",
     "jest-environment-jsdom": "^28.1.1",
@@ -77,6 +81,7 @@
     "msw": "^0.42.3",
     "next-router-mock": "^0.7.4",
     "prettier": "^2.7.1",
+    "ts-jest": "^28.0.8",
     "typescript": "4.7.4",
     "whatwg-fetch": "^3.6.2"
   }

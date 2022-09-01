@@ -9,8 +9,8 @@ describe('Bookmarks', () => {
 
   it('goes to the bookmarks', () => {
     cy.visit('/bookmarks')
-    cy.findByText('My Recipes', {
-      selector: 'h2',
+    cy.findByText('My Saved Recipes', {
+      selector: 'h1',
     }).should('exist')
   })
 })

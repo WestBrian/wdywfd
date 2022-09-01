@@ -11,6 +11,8 @@ import {
 } from 'firebase/firestore'
 import { isDev, isBrowser } from '../utils/isEnv'
 
+const doNotMockDb = process.env.NEXT_PUBLIC_DB_PROD === 'enabled'
+
 export interface FirebaseProvidersProps {
   children: ReactNode
 }
@@ -21,7 +23,7 @@ export const FirebaseProviders: FC<FirebaseProvidersProps> = ({ children }) => {
   const firestore = getFirestore(app)
   const [uid, setUid] = useState<string | null>(null)
 
-  if (isDev && isBrowser && !auth.emulatorConfig) {
+  if (isDev && isBrowser && !doNotMockDb && !auth.emulatorConfig) {
     console.log('--- 🔧 Setting up emulators 🔧 ---')
     connectAuthEmulator(auth, 'http://localhost:9099')
     connectFirestoreEmulator(firestore, 'localhost', 8080)

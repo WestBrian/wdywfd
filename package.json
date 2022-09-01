@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "concurrently \"npm run firebase:emulators:start\" \"next dev\"",
     "dev:mock": "NEXT_PUBLIC_API_MOCKING=enabled concurrently \"npm run firebase:emulators:start\" \"next dev\"",
+    "dev:prod": "NEXT_PUBLIC_DB_PROD=enabled next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
@@ -12,14 +13,14 @@
     "test:watch": "jest --watch",
     "test:rules": "firebase emulators:exec --only firestore \"jest --config=firebase.jest.config.js --detectOpenHandles --forceExit rules.spec\"",
     "test:coverage": "jest --collectCoverage",
-    "cypress:open": "concurrently \"npm run dev\" \"cypress open\"",
-    "cypress:mock": "concurrently \"npm run dev:mock\" \"cypress open\"",
-    "cypress:run": "concurrently \"npm run dev\" \"cypress run\"",
+    "cypress:open": "concurrently \"NEXT_PUBLIC_DB_PROD=enabled next dev\" \"cypress open\"",
+    "cypress:run": "concurrently \"NEXT_PUBLIC_DB_PROD=enabled next dev\" \"cypress run\"",
     "firebase:emulators:start": "firebase emulators:start",
     "format": "prettier --write \"{pages,src}/**/*\"",
     "typecheck": "tsc --noEmit",
     "validate": "npm run typecheck && npm run lint && npm run test:coverage -- --ci",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "deploy:rules": "firebase deploy --only firestore:rules"
   },
   "lint-staged": {
     "*": "prettier --write --ignore-unknown",

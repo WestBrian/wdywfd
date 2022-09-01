@@ -8,11 +8,6 @@ const Home: NextPage = () => {
     <div>
       <Head>
         <title>Whats For Dinner</title>
-        <meta
-          name="description"
-          content="Find recipes when you are stuck on what to make"
-        />
-        <link rel="icon" href="/favicon.ico" />
       </Head>
       <RecipeSearch />
     </div>

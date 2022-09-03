@@ -37,6 +37,7 @@ const theme = extendTheme({
     global: (props: StyleFunctionProps) => ({
       body: {
         bg: mode('gray.100', 'gray.800')(props),
+        WebkitTapHighlightColor: 'transparent',
       },
     }),
   },

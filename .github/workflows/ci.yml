@@ -14,12 +14,22 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+      - name: Setup caching
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.npm
+            ${{ github.workspace }}/.next/cache
+          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-${{ hashFiles('**.[jt]s', '**.[jt]sx') }}
+          restore-keys: |
+            ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-
       - name: Base validations
         uses: actions/setup-node@v3
         with:
           node-version: 16.x
       - run: npm ci
       - run: npm run validate
+      - uses: pocket-apps/action-setup-firebase@v2
       - name: Rules validations
         uses: actions/setup-java@v3
         with:

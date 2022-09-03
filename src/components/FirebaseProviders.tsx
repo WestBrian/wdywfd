@@ -25,7 +25,9 @@ export const FirebaseProviders: FC<FirebaseProvidersProps> = ({ children }) => {
 
   if (isDev && isBrowser && !doNotMockDb && !auth.emulatorConfig) {
     console.log('--- 🔧 Setting up emulators 🔧 ---')
-    connectAuthEmulator(auth, 'http://localhost:9099')
+    connectAuthEmulator(auth, 'http://localhost:9099', {
+      disableWarnings: true,
+    })
     connectFirestoreEmulator(firestore, 'localhost', 8080)
   }
 

@@ -7,6 +7,10 @@ export default class Document extends NextDocument {
     return (
       <Html lang="en">
         <Head>
+          <meta
+            name="description"
+            content="Find recipes when you are stuck on what to make"
+          />
           <link rel="preconnect" href="https://fonts.googleapis.com" />
           <link
             rel="preconnect"

@@ -30,6 +30,8 @@ jobs:
       - run: npm ci
       - run: npm run validate
       - uses: pocket-apps/action-setup-firebase@v2
+        with:
+          firebase-token: FIREBASE_TOKEN
       - name: Rules validations
         uses: actions/setup-java@v3
         with:

@@ -15,7 +15,7 @@ import {
 } from '@chakra-ui/react'
 import React, { type ReactNode, type FC } from 'react'
 import { useSigninCheck, useAuth } from 'reactfire'
-import { MailIcon } from '@heroicons/react/solid'
+import { EnvelopeIcon } from '@heroicons/react/24/solid'
 
 interface SectionProps {
   title: string
@@ -62,7 +62,7 @@ export const MyAccount: FC<MyAccountProps> = ({}) => {
         </Flex>
         <Section title={'Basic Information'}>
           <HStack spacing={2} align={'center'}>
-            <Icon as={MailIcon} />
+            <Icon as={EnvelopeIcon} />
             <Text>{user.email}</Text>
           </HStack>
         </Section>

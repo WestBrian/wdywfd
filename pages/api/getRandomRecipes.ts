@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import type { InlineResponse2006 } from '../../spoonacular-sdk'
+import type { GetRandomRecipes200Response } from 'spoonacular-js-sdk'
 import { recipeApi } from '../../src/lib/spoonacular'
 
 function getRandomRecipes(tag?: string) {
@@ -9,14 +9,14 @@ function getRandomRecipes(tag?: string) {
     tags = tag
   }
 
-  return new Promise<InlineResponse2006>((resolve, reject) => {
+  return new Promise<GetRandomRecipes200Response>((resolve, reject) => {
     recipeApi.getRandomRecipes(
       {
         limitLicense: true,
         tags,
-        _number: 6,
+        number: 6,
       },
-      (error: Error, data: InlineResponse2006) => {
+      (error: Error, data: GetRandomRecipes200Response) => {
         if (error) {
           reject(error)
         }
@@ -29,7 +29,7 @@ function getRandomRecipes(tag?: string) {
 
 const handler = async (
   req: NextApiRequest,
-  res: NextApiResponse<InlineResponse2006 | {}>
+  res: NextApiResponse<GetRandomRecipes200Response | {}>
 ) => {
   const tag = req.query.tag as string
   try {

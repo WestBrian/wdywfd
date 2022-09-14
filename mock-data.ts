@@ -9,10 +9,10 @@ import {
   randBoolean,
   randSentence,
 } from '@ngneat/falso'
-import { InlineResponse2006Recipes } from './spoonacular-sdk'
+import type { GetRandomRecipes200ResponseRecipesInner } from 'spoonacular-js-sdk'
 import { arrMap } from './src/utils/arrMap'
 
-export const mockRandomRecipe: InlineResponse2006Recipes = {
+export const mockRandomRecipe: GetRandomRecipes200ResponseRecipesInner = {
   id: 650858,
   title: 'Mangolicious Upside Down Cake',
   image: 'https://spoonacular.com/recipeImages/650858-556x370.jpg',
@@ -573,7 +573,7 @@ export function getRandomExtendedIngredient() {
   }
 }
 
-export function getRandomRecipe(): InlineResponse2006Recipes {
+export function getRandomRecipe(): GetRandomRecipes200ResponseRecipesInner {
   return {
     id: randNumber(),
     title: randFood(),

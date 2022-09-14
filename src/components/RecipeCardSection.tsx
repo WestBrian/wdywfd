@@ -10,7 +10,7 @@ import {
 } from '@chakra-ui/react'
 import React, { type FC, useEffect } from 'react'
 import { RecipeCard } from './RecipeCard'
-import { ExclamationCircleIcon } from '@heroicons/react/solid'
+import { ExclamationCircleIcon } from '@heroicons/react/24/solid'
 import { px } from '../pages/RecipeSearch'
 import { useInfiniteQuery, type InfiniteData } from '@tanstack/react-query'
 import { useAtom } from 'jotai'
@@ -25,9 +25,9 @@ import {
   maxReadyTimeAtom,
 } from '../store'
 import type {
-  InlineResponse200Results,
-  InlineResponse2006Recipes,
-} from '../../spoonacular-sdk'
+  SearchRecipes200ResponseResultsInner,
+  GetRandomRecipes200ResponseRecipesInner,
+} from 'spoonacular-js-sdk'
 import get from 'lodash/get'
 
 export interface RecipeCardSectionProps {}
@@ -101,8 +101,14 @@ export const RecipeCardSection: FC<RecipeCardSectionProps> = () => {
   }
 
   const recipes = showSearchRecipes
-    ? flattenInfiniteData<InlineResponse200Results>(searchData, 'results')
-    : flattenInfiniteData<InlineResponse2006Recipes>(randomData, 'recipes')
+    ? flattenInfiniteData<SearchRecipes200ResponseResultsInner>(
+        searchData,
+        'results'
+      )
+    : flattenInfiniteData<GetRandomRecipes200ResponseRecipesInner>(
+        randomData,
+        'recipes'
+      )
   const isFetching =
     (randomFetching && !randomFetchingNextPage) ||
     (searchFetching && !searchFetchingNextPage)
@@ -162,18 +168,13 @@ export const RecipeCardSection: FC<RecipeCardSectionProps> = () => {
       {recipes.length > 0 ? (
         <>
           <SimpleGrid w={'full'} px={px} columns={[1, 1, 2, 3, 4]} spacing={6}>
-            {recipes.map(
-              (
-                recipe: InlineResponse200Results | InlineResponse2006Recipes,
-                index: number
-              ) => (
-                <RecipeCard
-                  key={`${recipe.id}-${index}`}
-                  recipe={recipe}
-                  priority={index === 0}
-                />
-              )
-            )}
+            {recipes.map((recipe, index) => (
+              <RecipeCard
+                key={`${recipe.id}-${index}`}
+                recipe={recipe}
+                priority={index === 0}
+              />
+            ))}
           </SimpleGrid>
           <HStack py={6} w={'full'}>
             <Button

@@ -5,12 +5,12 @@ import {
   MenuItem,
   IconButton,
 } from '@chakra-ui/react'
-import { DotsHorizontalIcon } from '@heroicons/react/solid'
+import { EllipsisHorizontalIcon } from '@heroicons/react/24/solid'
 import React, { type FC } from 'react'
-import { InlineResponse2004 } from '../../spoonacular-sdk'
+import type { GetRecipeInformation200Response } from 'spoonacular-js-sdk'
 
 export interface RecipeMenuProps {
-  recipe: InlineResponse2004
+  recipe: GetRecipeInformation200Response
 }
 
 export const RecipeMenu: FC<RecipeMenuProps> = ({ recipe }) => {
@@ -18,7 +18,7 @@ export const RecipeMenu: FC<RecipeMenuProps> = ({ recipe }) => {
     <Menu>
       <MenuButton
         as={IconButton}
-        icon={<DotsHorizontalIcon width={20} />}
+        icon={<EllipsisHorizontalIcon width={20} />}
         aria-label={'options'}
       >
         Actions

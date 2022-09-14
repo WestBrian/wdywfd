@@ -1,9 +1,6 @@
 import React, { type FC, useState } from 'react'
 import { VStack, Flex, SimpleGrid } from '@chakra-ui/react'
-import {
-  InlineResponse20013Steps,
-  InlineResponse2003ExtendedIngredients,
-} from '../../spoonacular-sdk'
+import type { GetRecipeInformation200ResponseExtendedIngredientsInner } from 'spoonacular-js-sdk'
 import { ServingsButton } from './ServingsButton'
 import { IngredientDetail } from './IngredientDetail'
 import { IngredientsStepsToggle } from './IngredientsStepsToggle'
@@ -21,11 +18,11 @@ const animation: Variants = {
 
 interface Instruction {
   name: string
-  steps: InlineResponse20013Steps[]
+  steps: any[]
 }
 
 export interface RecipeDetailsProps {
-  ingredients: InlineResponse2003ExtendedIngredients[]
+  ingredients: GetRecipeInformation200ResponseExtendedIngredientsInner[]
   instructions: Instruction[]
   servings: number
 }

@@ -27,7 +27,7 @@ import {
   NumberInputField,
   NumberInputStepper,
 } from '@chakra-ui/react'
-import { AdjustmentsIcon } from '@heroicons/react/solid'
+import { AdjustmentsHorizontalIcon } from '@heroicons/react/24/solid'
 import React, { type FC, useRef, FormEvent } from 'react'
 import { useAtom } from 'jotai'
 import {
@@ -114,7 +114,7 @@ export const RecipeSearchForm: FC<RecipeSearchFormProps> = ({}) => {
           ref={btnRef}
           colorScheme={'teal'}
           aria-label={'Filters'}
-          icon={<AdjustmentsIcon width={20} />}
+          icon={<AdjustmentsHorizontalIcon width={20} />}
           onClick={onOpen}
         />
         <Drawer

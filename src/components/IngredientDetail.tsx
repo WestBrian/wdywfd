@@ -7,7 +7,7 @@ import {
   useColorModeValue,
 } from '@chakra-ui/react'
 import React, { type FC, useMemo } from 'react'
-import { InlineResponse2003ExtendedIngredients } from '../../spoonacular-sdk'
+import type { GetRecipeInformation200ResponseExtendedIngredientsInner } from 'spoonacular-js-sdk'
 import { foodToEmoji } from '../utils/foodToEmoji'
 import startCase from 'lodash/startCase'
 import round from 'lodash/round'
@@ -30,7 +30,7 @@ function formatAmount(amount: number) {
 }
 
 export interface IngredientDetailProps {
-  ingredient: InlineResponse2003ExtendedIngredients
+  ingredient: GetRecipeInformation200ResponseExtendedIngredientsInner
   adjustedServings: number
   servings: number
 }

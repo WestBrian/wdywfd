@@ -1,4 +1,4 @@
-import * as SpoonacularApi from '../../spoonacular-sdk'
+import * as SpoonacularApi from 'spoonacular-js-sdk'
 
 const defaultClient = SpoonacularApi.ApiClient.instance
 const apiKeyScheme = defaultClient.authentications['apiKeyScheme']

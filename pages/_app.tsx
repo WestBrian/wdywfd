@@ -9,12 +9,14 @@ import { FirebaseProviders } from '../src/components/FirebaseProviders'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { Provider as JotaiProvider } from 'jotai'
-import { isLowerEnv } from '../src/utils/isEnv'
 import { LoadProgressIndicator } from '../src/components/LoadProgressIndicator'
 import Head from 'next/head'
 import { PWALinks } from '../src/components/PWALinks'
 
-if (isLowerEnv && process.env.NEXT_PUBLIC_API_MOCKING === 'enabled') {
+if (
+  process.env.NODE_ENV !== 'production' &&
+  process.env.NEXT_PUBLIC_API_MOCKING === 'enabled'
+) {
   require('../src/lib/mocks')
 }
 

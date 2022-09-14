@@ -9,4 +9,7 @@ const nextConfig = {
   },
 }
 
-module.exports = nextConfig
+const withBundleAnalyzer =
+  process.env.ANALYZE === 'true' ? require('@next/bundle-analyzer')() : (x) => x
+
+module.exports = withBundleAnalyzer(nextConfig)

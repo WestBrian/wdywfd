@@ -1,6 +1,5 @@
 import { Box, HStack, Square, Text, useColorModeValue } from '@chakra-ui/react'
 import React, { type FC } from 'react'
-import { InlineResponse20013Steps } from '../../spoonacular-sdk'
 import { motion, Variants } from 'framer-motion'
 
 const animation: Variants = {

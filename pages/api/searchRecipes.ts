@@ -1,12 +1,12 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import type { InlineResponse200 } from '../../spoonacular-sdk'
+import type { SearchRecipes200Response } from 'spoonacular-js-sdk'
 import { recipeApi, type SearchOptions } from '../../src/lib/spoonacular'
 
 function searchRecipes(opts: SearchOptions) {
-  return new Promise<InlineResponse200>((resolve, reject) => {
+  return new Promise<SearchRecipes200Response>((resolve, reject) => {
     recipeApi.searchRecipes(
       opts as any,
-      (error: Error, data: InlineResponse200) => {
+      (error: Error, data: SearchRecipes200Response) => {
         if (error) {
           reject(error)
         } else {
@@ -35,7 +35,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     ...(maxReadyTime && { maxReadyTime: Number(maxReadyTime) }),
     limitLicense: false,
     offset: offset ? Number(offset) : 0,
-    _number: 6,
+    number: 6,
   })
   res.status(200).json(data)
 }

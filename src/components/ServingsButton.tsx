@@ -1,6 +1,6 @@
 import React, { type FC } from 'react'
 import { Box, IconButton, Text, HStack } from '@chakra-ui/react'
-import { MinusIcon, PlusIcon } from '@heroicons/react/solid'
+import { MinusIcon, PlusIcon } from '@heroicons/react/24/solid'
 
 export interface ServingsButtonProps {
   servings: number

@@ -1,16 +1,17 @@
 import React, { type FC } from 'react'
 import type {
-  InlineResponse2006Recipes,
-  InlineResponse200Results,
-} from '../../spoonacular-sdk'
+  GetRandomRecipes200ResponseRecipesInner,
+  SearchRecipes200ResponseResultsInner,
+} from 'spoonacular-js-sdk'
 import Image from 'next/image'
 import { Box, Text, VStack } from '@chakra-ui/react'
 import Link from 'next/link'
 import get from 'lodash/get'
-import { motion } from 'framer-motion'
 
 export interface RecipeCardProps {
-  recipe: InlineResponse2006Recipes | InlineResponse200Results
+  recipe:
+    | GetRandomRecipes200ResponseRecipesInner
+    | SearchRecipes200ResponseResultsInner
   priority?: boolean
 }
 

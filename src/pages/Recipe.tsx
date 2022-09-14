@@ -1,5 +1,5 @@
 import React, { type FC } from 'react'
-import type { InlineResponse2004 } from '../../spoonacular-sdk'
+import type { GetRecipeInformation200Response } from 'spoonacular-js-sdk'
 import {
   Container,
   Box,
@@ -13,16 +13,15 @@ import {
 } from '@chakra-ui/react'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
-import { ArrowLeftIcon } from '@heroicons/react/solid'
+import { ArrowLeftIcon, ClockIcon } from '@heroicons/react/24/solid'
 import { RecipeDetails } from '../components/RecipeDetails'
-import { ClockIcon } from '@heroicons/react/solid'
 import { RecipeBadges } from '../components/RecipeBadges'
 import { RecipeSummary } from '../components/RecipeSummary'
 import { RecipeMenu } from '../components/RecipeMenu'
 import { motion } from 'framer-motion'
 
 export interface RecipeProps {
-  recipe: InlineResponse2004
+  recipe: GetRecipeInformation200Response
 }
 
 export const Recipe: FC<RecipeProps> = ({ recipe }) => {

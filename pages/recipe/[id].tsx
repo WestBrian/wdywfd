@@ -1,19 +1,20 @@
 import type { GetStaticPaths, GetStaticProps, NextPage } from 'next'
-import Head from 'next/head'
 import { Recipe, RecipeProps } from '../../src/pages/Recipe'
 import { recipeApi } from '../../src/lib/spoonacular'
-import type { InlineResponse2004 } from '../../spoonacular-sdk'
+import type { GetRecipeInformation200Response } from 'spoonacular-js-sdk'
 import { Container, VStack, Skeleton } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 
-function getRecipeInformation(id: string): Promise<InlineResponse2004> {
+function getRecipeInformation(
+  id: string
+): Promise<GetRecipeInformation200Response> {
   return new Promise((resolve, reject) => {
     recipeApi.getRecipeInformation(
       Number(id),
       {
         includeNutrition: false,
       },
-      (error: Error, data: InlineResponse2004) => {
+      (error: Error, data: GetRecipeInformation200Response) => {
         if (error) {
           reject(error)
         }

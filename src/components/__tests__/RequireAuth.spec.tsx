@@ -4,6 +4,7 @@ import React from 'react'
 import * as reactfire from 'reactfire'
 
 jest.mock('next/router', () => require('next-router-mock'))
+
 jest.mock('reactfire', () => ({
   ...jest.requireActual('reactfire'),
   useSigninCheck: jest.fn(),

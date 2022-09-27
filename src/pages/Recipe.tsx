@@ -19,6 +19,7 @@ import { RecipeBadges } from '../components/RecipeBadges'
 import { RecipeSummary } from '../components/RecipeSummary'
 import { RecipeMenu } from '../components/RecipeMenu'
 import { motion } from 'framer-motion'
+import { SaveButton } from '../components/SaveButton'
 
 export interface RecipeProps {
   recipe: GetRecipeInformation200Response
@@ -92,6 +93,7 @@ export const Recipe: FC<RecipeProps> = ({ recipe }) => {
                 />
               </VStack>
             </Box>
+            <SaveButton recipe={recipe} />
           </Box>
           <RecipeSummary summary={recipe.summary} />
           <RecipeDetails

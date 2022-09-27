@@ -5,7 +5,14 @@ import {
   RulesTestEnvironment,
 } from '@firebase/rules-unit-testing'
 import { readFileSync } from 'fs'
-import { doc, getDoc, setDoc, setLogLevel } from 'firebase/firestore'
+import {
+  doc,
+  collection,
+  getDoc,
+  setDoc,
+  addDoc,
+  setLogLevel,
+} from 'firebase/firestore'
 
 let testEnv: RulesTestEnvironment | undefined
 
@@ -34,10 +41,17 @@ describe('firestore rules', () => {
   it('blocks an unauthenticated user from the users collection', async () => {
     const unauthedDb = testEnv!.unauthenticatedContext().firestore()
     await assertFails(getDoc(doc(unauthedDb, 'users/123')))
-  }, 20000)
+  }, 10000)
 
-  it('allows a authenticated user to set on the users collection', async () => {
-    const unauthedDb = testEnv!.authenticatedContext('123').firestore()
-    await assertSucceeds(setDoc(doc(unauthedDb, 'users/123'), { foo: 'bar' }))
-  }, 20000)
+  it('allows an authenticated user to write on the users collection', async () => {
+    const authedDb = testEnv!.authenticatedContext('123').firestore()
+    await assertSucceeds(setDoc(doc(authedDb, 'users/123'), { foo: 'bar' }))
+  }, 10000)
+
+  it('allows an authenticated user to write on the users recipes collection', async () => {
+    const authedDb = testEnv!.authenticatedContext('123').firestore()
+    await assertSucceeds(
+      addDoc(collection(authedDb, 'users/123/recipes'), { foo: 'bar' })
+    )
+  }, 10000)
 })

@@ -1,7 +1,7 @@
 /* istanbul ignore file */
 import React, { useState, useEffect, type ReactNode, type FC } from 'react'
 import { AuthProvider, FirestoreProvider, useFirebaseApp } from 'reactfire'
-import { getAuth, connectAuthEmulator } from 'firebase/auth'
+import { getAuth, connectAuthEmulator, User } from 'firebase/auth'
 import {
   getFirestore,
   connectFirestoreEmulator,
@@ -20,7 +20,7 @@ export const FirebaseProviders: FC<FirebaseProvidersProps> = ({ children }) => {
   const app = useFirebaseApp()
   const auth = getAuth(app)
   const firestore = getFirestore(app)
-  const [uid, setUid] = useState<string | null>(null)
+  const [user, setUser] = useState<User | null>(null)
 
   if (process.env.NODE_ENV === 'development') {
     if (typeof window !== 'undefined' && !doNotMockDb && !auth.emulatorConfig) {
@@ -35,23 +35,25 @@ export const FirebaseProviders: FC<FirebaseProvidersProps> = ({ children }) => {
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
-        setUid(user.uid)
+        setUser(user)
       }
     })
 
     return () => unsubscribe()
-  }, [auth, setUid])
+  }, [auth, setUser])
 
   useEffect(() => {
-    if (uid) {
-      const userRef = doc(firestore, 'users', uid)
+    if (user) {
+      const userRef = doc(firestore, `users/${user.uid}`)
       getDoc(userRef).then((snapshot) => {
         if (!snapshot.exists()) {
-          setDoc(userRef, {})
+          setDoc(userRef, {
+            email: user.email,
+          })
         }
       })
     }
-  }, [uid, firestore])
+  }, [user, firestore])
 
   return (
     <AuthProvider sdk={auth}>

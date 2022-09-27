@@ -36,3 +36,6 @@ const customRender = (
 
 export * from '@testing-library/react'
 export { customRender as render }
+export function castMocked(func: () => void): jest.Mock {
+  return func as jest.Mock
+}

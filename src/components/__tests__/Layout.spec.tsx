@@ -4,6 +4,7 @@ import React from 'react'
 import userEvent from '@testing-library/user-event'
 
 jest.mock('next/router', () => require('next-router-mock'))
+
 jest.mock('@chakra-ui/react', () => {
   const original = jest.requireActual('@chakra-ui/react')
   return {

@@ -1,4 +1,5 @@
-![GitHub deployments](https://img.shields.io/github/deployments/westbrian/wdywfd/production?label=vercel&logo=vercel&logoColor=white)
+![Deployment status](https://img.shields.io/github/deployments/westbrian/wdywfd/production?label=vercel&logo=vercel&logoColor=white)
+![License](https://img.shields.io/github/license/westbrian/wdywfd)
 
 # What Do You Want For Dinner
 

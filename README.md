@@ -1,3 +1,5 @@
+![GitHub deployments](https://img.shields.io/github/deployments/westbrian/wdywfd/production?label=vercel&logo=vercel&logoColor=white)
+
 # What Do You Want For Dinner
 
 [wdywfd.vercel.app](https://wdywfd.vercel.app/)

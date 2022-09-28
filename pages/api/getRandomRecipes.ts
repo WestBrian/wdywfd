@@ -14,7 +14,7 @@ function getRandomRecipes(tag?: string) {
       {
         limitLicense: true,
         tags,
-        number: 6,
+        number: 8,
       },
       (error: Error, data: GetRandomRecipes200Response) => {
         if (error) {

@@ -1,6 +1,7 @@
 import React, { type ReactNode, type FC, useRef } from 'react'
 import { Navbar } from './Navbar'
-import { Box, useDimensions } from '@chakra-ui/react'
+import { Box } from '@chakra-ui/react'
+import { useSize } from '@chakra-ui/react-use-size'
 
 export interface LayoutProps {
   children: ReactNode
@@ -8,15 +9,15 @@ export interface LayoutProps {
 
 export const Layout: FC<LayoutProps> = ({ children }) => {
   const navbarRef = useRef(null)
-  const dimensions = useDimensions(navbarRef, true)
+  const dimensions = useSize(navbarRef)
 
   return (
     <>
       <Navbar ref={navbarRef} />
       {dimensions && (
         <Box
-          ml={['auto', `${dimensions.paddingBox.width}px`]}
-          mb={[`${dimensions.paddingBox.height}px`, 'auto']}
+          ml={['auto', `${dimensions.width}px`]}
+          mb={[`${dimensions.height}px`, 'auto']}
         >
           {children}
         </Box>

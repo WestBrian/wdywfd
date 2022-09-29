@@ -1,12 +1,7 @@
-import React, { type FC, useState, useRef } from 'react'
-import {
-  Button,
-  HStack,
-  Box,
-  useDimensions,
-  useColorModeValue,
-} from '@chakra-ui/react'
+import React, { type FC, useRef } from 'react'
+import { Button, HStack, Box, useColorModeValue } from '@chakra-ui/react'
 import { motion } from 'framer-motion'
+import { useSize } from '@chakra-ui/react-use-size'
 
 export interface IngredientsStepsToggleProps {
   numOfIngredients: number
@@ -23,8 +18,8 @@ export const IngredientsStepsToggle: FC<IngredientsStepsToggleProps> = ({
 }) => {
   const iRef = useRef(null)
   const sRef = useRef(null)
-  const iDim = useDimensions(iRef, true)
-  const sDim = useDimensions(sRef, true)
+  const iDim = useSize(iRef)
+  const sDim = useSize(sRef)
 
   const isIngredients = tab === 'ingredients'
   const padding = 2
@@ -54,7 +49,7 @@ export const IngredientsStepsToggle: FC<IngredientsStepsToggleProps> = ({
           left={isIngredients ? paddingOffset : 'auto'}
           right={isIngredients ? 'auto' : paddingOffset}
           bottom={paddingOffset}
-          width={isIngredients ? iDim.paddingBox.width : sDim.paddingBox.width}
+          width={isIngredients ? iDim.width : sDim.width}
           layout
         />
       )}

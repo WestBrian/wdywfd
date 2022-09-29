@@ -1,7 +1,8 @@
 import React, { type FC, useState, useRef } from 'react'
-import { Text, Button, Box, Collapse, useDimensions } from '@chakra-ui/react'
+import { Text, Button, Box, Collapse } from '@chakra-ui/react'
 import { stripHtml } from 'string-strip-html'
 import truncate from 'lodash/truncate'
+import { useSize } from '@chakra-ui/react-use-size'
 
 const truncateLength = 175
 
@@ -11,7 +12,7 @@ export interface RecipeSummaryProps {
 
 export const RecipeSummary: FC<RecipeSummaryProps> = ({ summary }) => {
   const ref = useRef(null)
-  const dimensions = useDimensions(ref)
+  const dimensions = useSize(ref)
 
   const sanitizedText = stripHtml(summary).result
 
@@ -41,7 +42,7 @@ export const RecipeSummary: FC<RecipeSummaryProps> = ({ summary }) => {
   return (
     <Box w={'full'}>
       <Collapse
-        startingHeight={dimensions?.contentBox.height || 47}
+        startingHeight={dimensions?.height || 47}
         in={showMore}
         onAnimationComplete={handleAnimationComplete}
       >

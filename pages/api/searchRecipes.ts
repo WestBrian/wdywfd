@@ -35,7 +35,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     ...(maxReadyTime && { maxReadyTime: Number(maxReadyTime) }),
     limitLicense: false,
     offset: offset ? Number(offset) : 0,
-    number: 6,
+    number: 8,
   })
   res.status(200).json(data)
 }

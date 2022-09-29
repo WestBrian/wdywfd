@@ -6,4 +6,9 @@ Object.defineProperty(window, 'scrollTo', {
   value: jest.fn(),
 })
 
+Object.defineProperty(window, 'ResizeObserver', {
+  writable: true,
+  value: require('resize-observer-polyfill'),
+})
+
 Element.prototype.scrollTo = jest.fn()

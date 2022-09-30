@@ -52,6 +52,7 @@ const InnerButton: FC<InnerButtonProps> = ({ isSaved, onClick }) => {
         alignItems={'center'}
         justifyContent={'center'}
         aria-label={'Save recipe'}
+        data-splitbee-event={'Save Recipe'}
         onClick={onClick}
       />
     </ChakraBox>

@@ -115,6 +115,7 @@ export const RecipeSearchForm: FC<RecipeSearchFormProps> = ({}) => {
           colorScheme={'teal'}
           aria-label={'Filters'}
           icon={<AdjustmentsHorizontalIcon width={20} />}
+          data-splitbee-event={'Open Search Filters'}
           onClick={onOpen}
         />
         <Drawer
@@ -204,6 +205,7 @@ export const RecipeSearchForm: FC<RecipeSearchFormProps> = ({}) => {
                   variant={'outline'}
                   colorScheme={'red'}
                   onClick={handleReset}
+                  data-splitbee-event={'Reset Search Filters'}
                 >
                   Reset
                 </Button>
@@ -211,6 +213,7 @@ export const RecipeSearchForm: FC<RecipeSearchFormProps> = ({}) => {
                   type={'submit'}
                   form={'search-form'}
                   colorScheme={'green'}
+                  data-splitbee-event={'Update Search Filters'}
                 >
                   Update filters
                 </Button>

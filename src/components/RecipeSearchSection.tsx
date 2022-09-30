@@ -39,6 +39,8 @@ const RecipeTag: FC<RecipeTagProps> = ({ tag, ...radioProps }) => {
         {...getCheckboxProps()}
         minW={'fit-content'}
         colorScheme={state.isChecked ? 'green' : undefined}
+        data-splitbee-event={'Select Tag'}
+        data-splitbee-event-tag={tag}
       >
         <span {...getLabelProps()}>{tag.toUpperCase()}</span>
       </Button>

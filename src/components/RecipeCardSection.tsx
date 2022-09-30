@@ -29,6 +29,7 @@ import type {
   GetRandomRecipes200ResponseRecipesInner,
 } from 'spoonacular-js-sdk'
 import get from 'lodash/get'
+import splitbee from '@splitbee/web'
 
 export interface RecipeCardSectionProps {}
 
@@ -41,7 +42,7 @@ export const RecipeCardSection: FC<RecipeCardSectionProps> = () => {
   const [tag] = useAtom(tagAtom)
   const debouncedQuery = useDebounce(query, 1000)
 
-  const hasQuery = !!debouncedQuery && debouncedQuery.length > 3
+  const hasQuery = !!debouncedQuery && debouncedQuery.length > 2
   const showSearchRecipes =
     hasQuery || !!cuisine || !!diet || !!intolerance || !!maxReadyTime
 
@@ -134,6 +135,25 @@ export const RecipeCardSection: FC<RecipeCardSectionProps> = () => {
       })
     }
   }, [isError, toast])
+
+  useEffect(() => {
+    if (showSearchRecipes) {
+      splitbee.track('Search Recipes', {
+        query: debouncedQuery,
+        cuisine,
+        diet,
+        intolerance,
+        maxReadyTime,
+      })
+    }
+  }, [
+    showSearchRecipes,
+    debouncedQuery,
+    cuisine,
+    diet,
+    intolerance,
+    maxReadyTime,
+  ])
 
   if (isFetching) {
     return (

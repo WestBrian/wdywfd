@@ -24,6 +24,7 @@ export const ServingsButton: FC<ServingsButtonProps> = ({
             aria-label={'less servings'}
             icon={<MinusIcon width={15} />}
             disabled={servings <= 1}
+            data-splitbee-event={'Decrease Servings'}
             onClick={() => setServings(servings - 1)}
           />
           <IconButton
@@ -31,6 +32,7 @@ export const ServingsButton: FC<ServingsButtonProps> = ({
             colorScheme={'green'}
             aria-label={'more servings'}
             icon={<PlusIcon width={15} />}
+            data-splitbee-event={'Increase Servings'}
             onClick={() => setServings(servings + 1)}
           />
         </HStack>

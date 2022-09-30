@@ -31,6 +31,8 @@ export const RecipeMenu: FC<RecipeMenuProps> = ({ recipe }) => {
             target={'_blank'}
             rel={'noopener noreferrer'}
             fontWeight={'semibold'}
+            data-splitbee-event={'External Link'}
+            data-splitbee-event-type={'source url'}
           >
             View source
           </MenuItem>

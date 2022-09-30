@@ -63,6 +63,7 @@ export const IngredientsStepsToggle: FC<IngredientsStepsToggleProps> = ({
           color={isIngredients ? color : undefined}
           _hover={hover}
           _active={active}
+          data-splitbee-event={'Toggle Ingredients'}
           onClick={() => setTab('ingredients')}
         >
           Ingredients ({numOfIngredients})
@@ -76,6 +77,7 @@ export const IngredientsStepsToggle: FC<IngredientsStepsToggleProps> = ({
           color={!isIngredients ? color : undefined}
           _hover={hover}
           _active={active}
+          data-splitbee-event={'Toggle Steps'}
           onClick={() => setTab('steps')}
         >
           Steps ({numOfSteps})

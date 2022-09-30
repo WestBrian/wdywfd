@@ -2,7 +2,7 @@ import 'nprogress/nprogress.css'
 import type { AppProps } from 'next/app'
 import { ChakraProvider } from '@chakra-ui/react'
 import theme from '../src/theme'
-import React, { useMemo } from 'react'
+import React, { useMemo, useEffect } from 'react'
 import { Layout } from '../src/components/Layout'
 import { FirebaseAppProvider } from 'reactfire'
 import { FirebaseProviders } from '../src/components/FirebaseProviders'
@@ -12,6 +12,7 @@ import { Provider as JotaiProvider } from 'jotai'
 import { LoadProgressIndicator } from '../src/components/LoadProgressIndicator'
 import Head from 'next/head'
 import { PWALinks } from '../src/components/PWALinks'
+import splitbee from '@splitbee/web'
 
 if (
   process.env.NODE_ENV !== 'production' &&
@@ -42,6 +43,13 @@ export const firebaseConfig = {
 
 function App({ Component, pageProps }: AppProps) {
   const forPaths = useMemo(() => ['/recipe/'], [])
+
+  useEffect(() => {
+    splitbee.init({
+      scriptUrl: '/bee.js',
+      apiUrl: '/_hive',
+    })
+  }, [])
 
   return (
     <>

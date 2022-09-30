@@ -9,6 +9,7 @@ import {
   getDoc,
   setDoc,
 } from 'firebase/firestore'
+import splitbee from '@splitbee/web'
 
 const doNotMockDb = process.env.NEXT_PUBLIC_DB_PROD === 'enabled'
 
@@ -54,6 +55,16 @@ export const FirebaseProviders: FC<FirebaseProvidersProps> = ({ children }) => {
       })
     }
   }, [user, firestore])
+
+  useEffect(() => {
+    if (user) {
+      splitbee.user.set({
+        email: user.email,
+      })
+    } else {
+      splitbee.reset()
+    }
+  }, [user])
 
   return (
     <AuthProvider sdk={auth}>

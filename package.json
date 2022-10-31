@@ -60,7 +60,7 @@
     "@firebase/rules-unit-testing": "^2.0.4",
     "@next/bundle-analyzer": "^12.3.1",
     "@ngneat/falso": "^5.7.0",
-    "@tanstack/react-query-devtools": "^4.7.1",
+    "@tanstack/react-query-devtools": "^4.13.5",
     "@testing-library/cypress": "^8.0.3",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.3.0",

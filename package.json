@@ -69,7 +69,7 @@
     "@types/node-emoji": "^1.8.1",
     "@types/nprogress": "^0.2.0",
     "@types/pluralize": "^0.0.29",
-    "@types/react": "18.0.14",
+    "@types/react": "18.0.24",
     "@types/react-dom": "18.0.5",
     "concurrently": "^7.4.0",
     "cypress": "^10.3.0",

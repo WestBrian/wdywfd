@@ -74,7 +74,7 @@
     "concurrently": "^7.4.0",
     "cypress": "^10.3.0",
     "cypress-firebase": "^2.2.2",
-    "eslint": "8.17.0",
+    "eslint": "8.27.0",
     "eslint-config-next": "^12.3.0",
     "firebase-admin": "^11.0.1",
     "husky": "^8.0.1",
